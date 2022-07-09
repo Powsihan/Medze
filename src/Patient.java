@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -20,7 +19,6 @@ public class Patient implements Serializable{
     public String toSting(){
         return e_no+" "+name+" "+dob+" "+gender+" "+blood+" "+allergy+" "+contact;
     }
-
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Scanner scn = new Scanner(System.in);
         int ch = 0;
@@ -135,7 +133,6 @@ public class Patient implements Serializable{
                     String allergy1 = scn.nextLine();
                     System.out.print("contact number:");
                     int contact1 = scnum.nextInt();
-//            System.out.print("data:"+e_number1+name1+dob1+gender1+blood1+allergy1+contact1);
                     Patient patient = new Patient(e.e_no,name1, dob1, gender1, blood1, allergy1, contact1);
                     li.set(patient);
                 }

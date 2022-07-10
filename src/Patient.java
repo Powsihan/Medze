@@ -75,6 +75,9 @@ public static String dateinsert(){
     }
     return d;
 }
+public static void gender(int i){
+
+}
     private static void delete() throws IOException,ClassNotFoundException{
         File file = new File("Patient.txt");
         ObjectInputStream ois = null;
@@ -152,8 +155,7 @@ public static String dateinsert(){
 
                     System.out.print("name:");
                     String name1 = scn.nextLine();
-                    System.out.print("Date of Birth:");
-                    String dob1 = String.valueOf(dateinsert());
+                    String dob1 = dateinsert();
                     System.out.print("1.male\t 2.female\t Gender:");
                     int gender1 = scnum.nextInt();
                     System.out.print("blood group:");
@@ -237,7 +239,6 @@ public static String dateinsert(){
             String e_number1 =scn.nextLine();
             System.out.print("name:");
             String name1 = scn.nextLine();
-            System.out.print("Date of Birth:");
             String date1 = dateinsert();
             System.out.print("1.male\t 2.female\t Gender:");
             int gender1 =scnum.nextInt();

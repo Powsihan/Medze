@@ -49,6 +49,9 @@ public class Patient implements Serializable{
                 case 5:
                     Patient.delete();
                     break;
+                case 0:
+                    System.out.println("thank you");
+                    break;
                 default:
                     System.out.println("invalid input");
                     break;
@@ -75,8 +78,24 @@ public static String dateinsert(){
     }
     return d;
 }
-public static void gender(int i){
-
+public static int gender(){
+        int g =0,i;
+        Scanner scn =  new Scanner(System.in);
+    System.out.print("1.male\t 2.female\t Gender:");
+    i = scn.nextInt();
+    switch (i) {
+        case 1:
+         g=i;
+            break;
+        case 2:
+            g=i;
+            break;
+        default:
+            System.out.println("invalid input!");
+            gender();
+            break;
+    }
+    return g;
 }
     private static void delete() throws IOException,ClassNotFoundException{
         File file = new File("Patient.txt");
@@ -156,8 +175,7 @@ public static void gender(int i){
                     System.out.print("name:");
                     String name1 = scn.nextLine();
                     String dob1 = dateinsert();
-                    System.out.print("1.male\t 2.female\t Gender:");
-                    int gender1 = scnum.nextInt();
+                    int gender1 =  gender();
                     System.out.print("blood group:");
                     String blood1 = scn.nextLine();
                     System.out.print("contact number:");
@@ -240,8 +258,7 @@ public static void gender(int i){
             System.out.print("name:");
             String name1 = scn.nextLine();
             String date1 = dateinsert();
-            System.out.print("1.male\t 2.female\t Gender:");
-            int gender1 =scnum.nextInt();
+            int gender1 =gender();
             System.out.print("blood group:");
             String blood1 =scn.nextLine();
             System.out.print("contact number:");

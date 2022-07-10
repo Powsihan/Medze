@@ -1,25 +1,31 @@
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Scanner;
+import java.util.Date;
+
 
 public class Patient implements Serializable{
     String e_no,name,blood,allergy;
-    int dob,gender;
+    int gender;
+    Date date = null;
     int contact;
-    Patient(String e_noI,String nameI,int dobI, int genderI,String bloodI,String allergyI,int contactI){
+    Patient(String e_noI,String nameI,String dobI, int genderI,String bloodI,String allergyI,int contactI) throws ParseException {
+        SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
         this.e_no = e_noI;
         this.name = nameI;
-        this.dob = dobI;
+        this.date = sfd.parse(String.valueOf(dobI));
         this.gender = genderI;
         this.blood = bloodI;
         this.allergy = allergyI;
         this.contact = contactI;
     }
     public String toSting(){
-        return e_no+" "+name+" "+dob+" "+gender+" "+blood+" "+allergy+" "+contact;
+        return e_no+" "+name+" "+date+" "+gender+" "+blood+" "+allergy+" "+contact;
     }
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException {
         Scanner scn = new Scanner(System.in);
         int ch = 0;
 
@@ -49,7 +55,26 @@ public class Patient implements Serializable{
             }
         }while (ch != 0);
     }
+public static String dateinsert(){
+    Scanner scn = new Scanner(System.in);
+    System.out.print("date of birth:");
+    String d = scn.next();
+    Date date1 = null;
+    if (d.matches("[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{4}")) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date1 = sdf.parse(d);
+        } catch (ParseException e) {
+            System.out.println("invalid date format" + d);
+            dateinsert();
+        }
 
+    } else {
+        System.out.println("invalid date format" + d+"\ncheck the digits of date MM-02 correct MM-18 wrong");
+        dateinsert();
+    }
+    return d;
+}
     private static void delete() throws IOException,ClassNotFoundException{
         File file = new File("Patient.txt");
         ObjectInputStream ois = null;
@@ -66,11 +91,13 @@ public class Patient implements Serializable{
             boolean found = false;
             System.out.print("enter the enrolmet number to delete:");
             String search = scn.nextLine();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             li = sal.listIterator();
             for (Patient st : sal) {
+                String D = sdf.format(st.date);
                 if (search.equals(st.e_no)) {
 
-                    System.out.println(st.e_no + " " + st.name + " " + st.dob + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact+"deleted!");
+                    System.out.println(st.e_no + " " + st.name + " " + D + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact+"deleted!");
                     found = true;
                 }
             }
@@ -94,7 +121,7 @@ public class Patient implements Serializable{
         }
     }
 
-    private static void update() throws IOException, ClassNotFoundException {
+    private static void update() throws IOException, ClassNotFoundException, ParseException {
         File file = new File("Patient.txt");
         ObjectInputStream ois  = null;
         ObjectOutputStream oos =  null;
@@ -110,10 +137,12 @@ public class Patient implements Serializable{
             System.out.print("enter the enrolmet number to update:");
             String search = scn.nextLine();
             li = sal.listIterator();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             for (Patient st : sal) {
+                String D = sdf.format(st.date);
                 if (search.equals(st.e_no)) {
 
-                    System.out.println(st.e_no + " " + st.name + " " + st.dob + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact + "old data");
+                    System.out.println(st.e_no + " " + st.name + " " + D + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact + "old data");
                     found = true;
                 }
             }
@@ -124,7 +153,7 @@ public class Patient implements Serializable{
                     System.out.print("name:");
                     String name1 = scn.nextLine();
                     System.out.print("Date of Birth:");
-                    int dob1 = scnum.nextInt();
+                    String dob1 = String.valueOf(dateinsert());
                     System.out.print("1.male\t 2.female\t Gender:");
                     int gender1 = scnum.nextInt();
                     System.out.print("blood group:");
@@ -162,8 +191,10 @@ public class Patient implements Serializable{
             System.out.print("enter the enrolmet number to search:");
             String search = scn.nextLine();
             for (Patient st : sal) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
+                String D = sdf.format(st.date);
                 if (search.equals(st.e_no)) {
-                    System.out.println(st.e_no + " " + st.name + " " + st.dob + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact);
+                    System.out.println(st.e_no + " " + st.name + " " + D  + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact);
                     found = true;
                 }
             }
@@ -183,16 +214,18 @@ public class Patient implements Serializable{
             ois = new ObjectInputStream(new FileInputStream(file));
             sal = (ArrayList<Patient>) ois.readObject();
             ois.close();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
 
             for (Patient st : sal) {
-                System.out.println(st.e_no + " " + st.name + " " + st.dob + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact);
+                String D = sdf.format(st.date);
+                System.out.println(st.e_no + " " + st.name + " " + D + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact);
             }
         }else {
             System.out.println("file is not exist!");
         }
     }
 
-    public static void inert() throws IOException {
+    public static void inert() throws IOException, ParseException {
         System.out.println("welcome to data insert section");
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
@@ -205,7 +238,7 @@ public class Patient implements Serializable{
             System.out.print("name:");
             String name1 = scn.nextLine();
             System.out.print("Date of Birth:");
-            int dob1 =scnum.nextInt();
+            String date1 = dateinsert();
             System.out.print("1.male\t 2.female\t Gender:");
             int gender1 =scnum.nextInt();
             System.out.print("blood group:");
@@ -214,7 +247,7 @@ public class Patient implements Serializable{
             String allergy1 =scn.nextLine();
             System.out.print("contact number:");
             int contact1 =scnum.nextInt();
-            Patient patient = new Patient(e_number1,name1,dob1,gender1,blood1,allergy1,contact1);
+            Patient patient = new Patient(e_number1,name1,date1,gender1,blood1,allergy1,contact1);
             sal.add(patient);
 
         }

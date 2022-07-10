@@ -12,18 +12,18 @@ public class Patient implements Serializable{
     int gender;
     Date date = null;
     int contact;
-    Patient(String e_noI,String nameI,String dobI, int genderI,String bloodI,String allergyI,int contactI) throws ParseException {
+    Patient(String e_noI,String nameI,String dobI, int genderI,String bloodI,int contactI,String allergyI) throws ParseException {
         SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
         this.e_no = e_noI;
         this.name = nameI;
         this.date = sfd.parse(String.valueOf(dobI));
         this.gender = genderI;
         this.blood = bloodI;
-        this.allergy = allergyI;
         this.contact = contactI;
+        this.allergy = allergyI;
     }
     public String toSting(){
-        return e_no+" "+name+" "+date+" "+gender+" "+blood+" "+allergy+" "+contact;
+        return e_no+" "+name+" "+date+" "+gender+" "+blood+" "+contact+" "+allergy;
     }
     public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException {
         Scanner scn = new Scanner(System.in);
@@ -35,7 +35,7 @@ public class Patient implements Serializable{
             ch = scn.nextInt();
             switch (ch){
                 case 1:
-                    Patient.inert();
+                    Patient.insert();
                     break;
                 case 2:
                     Patient.patientlist();
@@ -97,7 +97,7 @@ public static String dateinsert(){
                 String D = sdf.format(st.date);
                 if (search.equals(st.e_no)) {
 
-                    System.out.println(st.e_no + " " + st.name + " " + D + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact+"deleted!");
+                    System.out.println(st.e_no + " " + st.name + " " + D + " " + st.gender + " " + st.blood  + " " + st.contact+ " " + st.allergy+"deleted!");
                     found = true;
                 }
             }
@@ -142,7 +142,7 @@ public static String dateinsert(){
                 String D = sdf.format(st.date);
                 if (search.equals(st.e_no)) {
 
-                    System.out.println(st.e_no + " " + st.name + " " + D + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact + "old data");
+                    System.out.println(st.e_no + " " + st.name + " " + D + " " + st.gender + " " + st.blood + " " + st.contact + " " + st.allergy +"old data");
                     found = true;
                 }
             }
@@ -158,11 +158,11 @@ public static String dateinsert(){
                     int gender1 = scnum.nextInt();
                     System.out.print("blood group:");
                     String blood1 = scn.nextLine();
-                    System.out.print("spectial desaese or allergy:");
-                    String allergy1 = scn.nextLine();
                     System.out.print("contact number:");
                     int contact1 = scnum.nextInt();
-                    Patient patient = new Patient(e.e_no,name1, dob1, gender1, blood1, allergy1, contact1);
+                    System.out.print("spectial desaese or allergy:");
+                    String allergy1 = scn.nextLine();
+                    Patient patient = new Patient(e.e_no,name1, dob1, gender1, blood1, contact1, allergy1);
                     li.set(patient);
                 }
             }
@@ -194,7 +194,7 @@ public static String dateinsert(){
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
                 String D = sdf.format(st.date);
                 if (search.equals(st.e_no)) {
-                    System.out.println(st.e_no + " " + st.name + " " + D  + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact);
+                    System.out.println(st.e_no + " " + st.name + " " + D  + " " + st.gender + " " + st.blood  + " " + st.contact+ " " + st.allergy);
                     found = true;
                 }
             }
@@ -218,14 +218,14 @@ public static String dateinsert(){
 
             for (Patient st : sal) {
                 String D = sdf.format(st.date);
-                System.out.println(st.e_no + " " + st.name + " " + D + " " + st.gender + " " + st.blood + " " + st.allergy + " " + st.contact);
+                System.out.println(st.e_no + " " + st.name + " " + D + " " + st.gender + " " + st.blood + " " + st.contact+ " " + st.allergy );
             }
         }else {
             System.out.println("file is not exist!");
         }
     }
 
-    public static void inert() throws IOException, ParseException {
+    public static void insert() throws IOException, ParseException {
         System.out.println("welcome to data insert section");
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
@@ -243,11 +243,11 @@ public static String dateinsert(){
             int gender1 =scnum.nextInt();
             System.out.print("blood group:");
             String blood1 =scn.nextLine();
-            System.out.print("spectial desaese or allergy:");
-            String allergy1 =scn.nextLine();
             System.out.print("contact number:");
             int contact1 =scnum.nextInt();
-            Patient patient = new Patient(e_number1,name1,date1,gender1,blood1,allergy1,contact1);
+            System.out.print("spectial desaese or allergy:");
+            String allergy1 =scn.nextLine();
+            Patient patient = new Patient(e_number1,name1,date1,gender1,blood1,contact1,allergy1);
             sal.add(patient);
 
         }

@@ -8,11 +8,10 @@ import java.util.Date;
 
 
 public class Patient implements Serializable{
-    String e_no,name,blood,allergy;
-    int gender;
+    String e_no,name,gender,blood,allergy;
     Date date = null;
     int contact;
-    Patient(String e_noI,String nameI,String dobI, int genderI,String bloodI,int contactI,String allergyI) throws ParseException {
+    Patient(String e_noI,String nameI,String dobI, String genderI,String bloodI,int contactI,String allergyI) throws ParseException {
         SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
         this.e_no = e_noI;
         this.name = nameI;
@@ -27,7 +26,7 @@ public class Patient implements Serializable{
     }
     public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException {
         Scanner scn = new Scanner(System.in);
-        int ch = 0;
+        int ch = 0,n=-1;
 
         do {
             System.out.println("1.inset\t2.view\t3.search\t4.upadte\t5.delete\t0.exit");
@@ -78,17 +77,18 @@ public static String dateinsert(){
     }
     return d;
 }
-public static int gender(){
-        int g =0,i;
+public static String gender(){
+        int i;
+        String g =null;
         Scanner scn =  new Scanner(System.in);
     System.out.print("1.male\t 2.female\t Gender:");
     i = scn.nextInt();
     switch (i) {
         case 1:
-         g=i;
+         g="MALE";
             break;
         case 2:
-            g=i;
+            g="FEMALE";
             break;
         default:
             System.out.println("invalid input!");
@@ -97,6 +97,30 @@ public static int gender(){
     }
     return g;
 }
+
+//    public static void bloodinsert(){
+//        Scanner scn = new Scanner(System.in);
+//        System.out.print("\n \t1.O \t2.A \t3.B \t4.AB");
+//        System.out.print("blood group and '+' or '-' eg:- for B+ ----> 3+ ");
+//        System.out.println("blood group:");
+//        String blood = scn.next();
+//        switch (blood){
+//            case '1':
+//
+//                break;
+//            case '2':
+//
+//                break;
+//            case '3':
+//
+//                break;
+//            case '4':
+//
+//                break;
+//
+//        }
+//
+//    }
     private static void delete() throws IOException,ClassNotFoundException{
         File file = new File("Patient.txt");
         ObjectInputStream ois = null;
@@ -175,7 +199,7 @@ public static int gender(){
                     System.out.print("name:");
                     String name1 = scn.nextLine();
                     String dob1 = dateinsert();
-                    int gender1 =  gender();
+                    String gender1 =  gender();
                     System.out.print("blood group:");
                     String blood1 = scn.nextLine();
                     System.out.print("contact number:");
@@ -245,32 +269,48 @@ public static int gender(){
         }
     }
 
-    public static void insert() throws IOException, ParseException {
+    public static void insert() throws IOException, ParseException, ClassNotFoundException {
         System.out.println("welcome to data insert section");
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
         ArrayList<Patient> sal = new ArrayList<>();
         File file =new File("patient.txt");
         ObjectOutputStream oos = null;
-        for (int i = 0; i < 2; i++) {
+        int ch =-1;
+        while (ch != 0){
             System.out.print("enrollment number:");
-            String e_number1 =scn.nextLine();
+            String e_number1 = scn.nextLine();
             System.out.print("name:");
             String name1 = scn.nextLine();
             String date1 = dateinsert();
-            int gender1 =gender();
+            String gender1 = gender();
             System.out.print("blood group:");
-            String blood1 =scn.nextLine();
+            String blood1 = scn.nextLine();
             System.out.print("contact number:");
-            int contact1 =scnum.nextInt();
+            int contact1 = scnum.nextInt();
             System.out.print("spectial desaese or allergy:");
-            String allergy1 =scn.nextLine();
-            Patient patient = new Patient(e_number1,name1,date1,gender1,blood1,contact1,allergy1);
+            String allergy1 = scn.nextLine();
+            Patient patient = new Patient(e_number1, name1, date1, gender1, blood1, contact1, allergy1);
             sal.add(patient);
-
+            ch = iteration();
         }
         oos = new ObjectOutputStream(new FileOutputStream(file));
         oos.writeObject(sal);
         oos.close();
+    }
+    public static int iteration(){
+        Scanner scn = new Scanner(System.in);
+        System.out.println("1.next \t0.back choise:");
+        int ch = scn.nextInt();
+        if (ch == 1){
+            System.out.println("====================================new====================================");
+        } else if (ch == 0) {
+            System.out.println("thank you");
+            return ch;
+        }else {
+            System.out.print("invalid input");
+            Patient.iteration();
+        }
+        return ch;
     }
 }

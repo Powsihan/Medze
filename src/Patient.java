@@ -129,7 +129,7 @@ public static String gender(){
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
         ListIterator li = null;
-
+        System.out.println("================================================DELETE=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
             sal = (ArrayList<Patient>) ois.readObject();
@@ -165,6 +165,7 @@ public static String gender(){
         }else {
             System.out.println("file is not exist!");
         }
+        System.out.println("==============================================================================================================");
     }
 
     private static void update() throws IOException, ClassNotFoundException, ParseException {
@@ -175,6 +176,7 @@ public static String gender(){
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
         ListIterator li =null;
+        System.out.println("================================================UPDATE=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
             sal = (ArrayList<Patient>) ois.readObject();
@@ -189,6 +191,7 @@ public static String gender(){
                 if (search.equals(st.e_no)) {
 
                     System.out.println(st.e_no + " " + st.name + " " + D + " " + st.gender + " " + st.blood + " " + st.contact + " " + st.allergy +"old data");
+                    System.out.println("--------------------------------------------------------------------------------------------------------------------");
                     found = true;
                 }
             }
@@ -220,6 +223,7 @@ public static String gender(){
                 oos.close();
             }
         }
+        System.out.println("=============================================================================================================");
     }
 
     private static void search() throws IOException, ClassNotFoundException {
@@ -227,6 +231,7 @@ public static String gender(){
         ObjectInputStream ois = null;
         ArrayList<Patient> sal = new ArrayList<>();
         Scanner scn = new Scanner(System.in);
+        System.out.println("================================================SEARCH=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
             sal = (ArrayList<Patient>) ois.readObject();
@@ -239,6 +244,7 @@ public static String gender(){
                 String D = sdf.format(st.date);
                 if (search.equals(st.e_no)) {
                     System.out.println(st.e_no + " " + st.name + " " + D  + " " + st.gender + " " + st.blood  + " " + st.contact+ " " + st.allergy);
+                    System.out.println("--------------------------------------------------------------------------------------------------------------------");
                     found = true;
                 }
             }
@@ -248,12 +254,14 @@ public static String gender(){
         }else {
             System.out.println("file is not exist!");
         }
+        System.out.println("=============================================================================================================");
     }
 
     private static void patientlist() throws IOException, ClassNotFoundException {
         File file = new File("patient.txt");
         ObjectInputStream ois = null;
         ArrayList<Patient> sal =  new ArrayList<>();
+        System.out.println("================================================LIST=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
             sal = (ArrayList<Patient>) ois.readObject();
@@ -263,13 +271,16 @@ public static String gender(){
             for (Patient st : sal) {
                 String D = sdf.format(st.date);
                 System.out.println(st.e_no + " " + st.name + " " + D + " " + st.gender + " " + st.blood + " " + st.contact+ " " + st.allergy );
+                System.out.println("--------------------------------------------------------------------------------------------------------------------");
             }
         }else {
             System.out.println("file is not exist!");
         }
+        System.out.println("===============================================================================================================");
     }
 
     public static void insert() throws IOException, ParseException, ClassNotFoundException {
+        System.out.println("================================================INSERT=======================================================");
         System.out.println("welcome to data insert section");
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
@@ -297,6 +308,7 @@ public static String gender(){
         oos = new ObjectOutputStream(new FileOutputStream(file));
         oos.writeObject(sal);
         oos.close();
+        System.out.println("=============================================================================================================");
     }
     public static int iteration(){
         Scanner scn = new Scanner(System.in);

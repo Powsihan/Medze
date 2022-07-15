@@ -1,10 +1,7 @@
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.ListIterator;
-import java.util.Scanner;
-import java.util.Date;
+import java.util.*;
 
 
 public class Patient implements Serializable{
@@ -92,35 +89,27 @@ public static String gender(){
             break;
         default:
             System.out.println("invalid input!");
-            gender();
+            g=gender();
             break;
     }
     return g;
 }
 
-//    public static void bloodinsert(){
-//        Scanner scn = new Scanner(System.in);
+    public static String bloodinsert(){
+        String r= null;
+        Scanner scn = new Scanner(System.in);
 //        System.out.print("\n \t1.O \t2.A \t3.B \t4.AB");
 //        System.out.print("blood group and '+' or '-' eg:- for B+ ----> 3+ ");
-//        System.out.println("blood group:");
-//        String blood = scn.next();
-//        switch (blood){
-//            case '1':
-//
-//                break;
-//            case '2':
-//
-//                break;
-//            case '3':
-//
-//                break;
-//            case '4':
-//
-//                break;
-//
-//        }
-//
-//    }
+        System.out.print("blood group:");
+        String blood = scn.next();
+    if(blood.equalsIgnoreCase("ab+") ||blood.equalsIgnoreCase("ab-")||blood.equalsIgnoreCase("a+")||blood.equalsIgnoreCase("a-")||blood.equalsIgnoreCase("b+")||blood.equalsIgnoreCase("b-")||blood.equalsIgnoreCase("o+")||blood.equalsIgnoreCase("o-")){
+        r = blood.toUpperCase();
+    }else {
+        System.out.println("ivalid input try again!");
+        r = bloodinsert();
+    }
+return r;
+    }
     private static void delete() throws IOException,ClassNotFoundException{
         File file = new File("Patient.txt");
         ObjectInputStream ois = null;
@@ -203,8 +192,7 @@ public static String gender(){
                     String name1 = scn.nextLine();
                     String dob1 = dateinsert();
                     String gender1 =  gender();
-                    System.out.print("blood group:");
-                    String blood1 = scn.nextLine();
+                    String blood1 = bloodinsert();
                     System.out.print("contact number:");
                     int contact1 = scnum.nextInt();
                     System.out.print("spectial desaese or allergy:");
@@ -284,9 +272,14 @@ public static String gender(){
         System.out.println("welcome to data insert section");
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
+        ObjectOutputStream oos = null;
         ArrayList<Patient> sal = new ArrayList<>();
         File file =new File("patient.txt");
-        ObjectOutputStream oos = null;
+        if(file.isFile()){
+            ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(file));
+            sal = (ArrayList<Patient>) ois.readObject();
+            ois.close();
+        }
         int ch =-1;
         while (ch != 0){
             System.out.print("enrollment number:");
@@ -295,8 +288,7 @@ public static String gender(){
             String name1 = scn.nextLine();
             String date1 = dateinsert();
             String gender1 = gender();
-            System.out.print("blood group:");
-            String blood1 = scn.nextLine();
+            String blood1 = bloodinsert();
             System.out.print("contact number:");
             int contact1 = scnum.nextInt();
             System.out.print("spectial desaese or allergy:");
@@ -308,6 +300,7 @@ public static String gender(){
         oos = new ObjectOutputStream(new FileOutputStream(file));
         oos.writeObject(sal);
         oos.close();
+        System.out.println("success!");
         System.out.println("=============================================================================================================");
     }
     public static int iteration(){

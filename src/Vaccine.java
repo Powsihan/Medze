@@ -1,14 +1,20 @@
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Vaccine {
+    String E_No;
+    Vaccine(String e_No){
+        this.E_No=e_No;
+    }
 
-    public static void main(String[] args){
+    public static void main() throws IOException, ClassNotFoundException {
 
         VaccinePassword();
     }
 
-    public static void Vaccination1(){
+    public static void Vaccination1() throws IOException, ClassNotFoundException {
         System.out.println("<================================================Welcome================================================>");
         System.out.println(".........................................................................................................");
         System.out.println(".........................................................................................................");
@@ -61,12 +67,12 @@ public class Vaccine {
 
 
 
-    public static void VaccinePassword(){
+    public static void VaccinePassword() throws IOException, ClassNotFoundException {
         Scanner pass= new Scanner(System.in);
         int passV;
         do{
             System.out.print("===> Enter the Vaccine Unit Password : ");
-             passV=pass.nextInt();
+            passV=pass.nextInt();
 
             if(passV==333){
                 System.out.println("\n\n");
@@ -121,44 +127,58 @@ public class Vaccine {
 
     }
 
-    public static void Student(){
-        try{
-            Scanner Student=new Scanner(System.in);
-            System.out.print("Enter the Student EnrollNo:");
-            String n1=Student.next();
-            System.out.println("\n<=======================================VACCINE LIST===============================================>\n");
-            VaccineList();
-            System.out.println("\n<==================================================================================================>\n");
-            System.out.print("Enter the Vaccine Code:");
-            String n2=Student.next();
-            String line;
-            FileInputStream VAcc=new FileInputStream(n2+".txt");
-            Scanner VaccineDet=new Scanner(VAcc);
-            while(VaccineDet.hasNextLine()){
-                line=VaccineDet.nextLine();
-                if(line.contains(n1)){
+    public static void Student() throws IOException, ClassNotFoundException {
+
+        Scanner Student=new Scanner(System.in);
+        System.out.print("Enter the Student EnrollNo:");
+        String n1=Student.next();
+        System.out.println("\n<=======================================VACCINE LIST===============================================>\n");
+        VaccineList();
+        System.out.println("\n<==================================================================================================>\n");
+        System.out.print("Enter the Vaccine Code:");
+        String n2=Student.next();
+        File VAcc=new File(n2+".txt");
+        ObjectInputStream ois = null;
+        ArrayList<Vaccine> sal = new ArrayList<>();
+        Scanner VaccineDet=new Scanner(VAcc);
+        if (VAcc.isFile()) {
+            ois = new ObjectInputStream(new FileInputStream(VAcc));
+
+            ObjectOutputStream oos =null;
+            sal = (ArrayList<Vaccine>) ois.readObject();
+            ois.close();
+            boolean found = false;
+            String search = VaccineDet.nextLine();
+
+
+            for (Vaccine st : sal) {
+                if (n1.equals(st.E_No)) {
                     System.out.println("Already Vaccinated....");
+                    found = true;
+                }
+                else{
+                    Vaccine StD=new Vaccine(n1);
+                    sal.add(StD);
 
-
-                }else{
-                    FileWriter Vac=new FileWriter(n2+".txt",true);
-                    PrintWriter Student1=new PrintWriter(Vac);
+                    PrintWriter Student1=new PrintWriter(VAcc);
                     Student1.println(n1);
+                    oos=new ObjectOutputStream(new FileOutputStream(VAcc));
 
                     System.out.println("Successfully Vaccinated....");
 
                     Student1.close();
-
-
-
                 }
                 VaccineDet.close();
-
             }
-
-        }catch (Exception e){
-            System.out.println();
+            if (!found) {
+                System.out.println("Patient not found");
+            }
+        }else {
+            System.out.println("file is not exist!");
         }
+
+
+
 
 
     }

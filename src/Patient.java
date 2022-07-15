@@ -189,7 +189,7 @@ return r;
                 if (search.equals(e.e_no)) {
 
                     System.out.print("name:");
-                    String name1 = scn.nextLine();
+                    String name1 = scn.nextLine().toUpperCase();
                     String dob1 = dateinsert();
                     String gender1 =  gender();
                     String blood1 = bloodinsert();
@@ -283,9 +283,9 @@ return r;
         int ch =-1;
         while (ch != 0){
             System.out.print("enrollment number:");
-            String e_number1 = scn.nextLine();
+            String e_number1 = scn.nextLine().toUpperCase();
             System.out.print("name:");
-            String name1 = scn.nextLine();
+            String name1 = scn.nextLine().toUpperCase();
             String date1 = dateinsert();
             String gender1 = gender();
             String blood1 = bloodinsert();

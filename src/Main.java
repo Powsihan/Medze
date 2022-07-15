@@ -11,24 +11,20 @@ int ch =-1;
 
         do{
             System.out.println("\n<========================================================================================================>");
-            System.out.println("\t1.Student\t2.Staff\t\t3.Vaccine\t4.Doctor\t\t0.Exit");
+            System.out.println("\t1.Admin\t\t2.Doctor\t\t3.Vaccine\t\t0.Exit");
             System.out.print("=>Enter your choice:");
             ch=scn.nextInt();
             switch (ch){
                 case 1:
-                    System.out.println("wel come to student section");
-                    Patient.main("Student","enrollment number");
+                    System.out.println("wel come to admin section");
+                   admin();
                     break;
                 case 2:
-                    System.out.println("wel come to staff section");
-                    Patient.main("staff","staff ID");
+                    System.out.println("wel come doctor section");
                     break;
                 case 3:
                    System.out.println("wel come");
                    Vaccine.main();
-                    break;
-                case 4:
-                    System.out.println("wel come");
                     break;
                 case 0:
                     System.out.println("thank you!");
@@ -65,5 +61,35 @@ int ch =-1;
                 " \t # #######           ## \t######## \t#######   \t######## \t########\n"+
                 "\t\t\t             ##                                       \n"+
                 "       \t\t\t         ");Main.loarding();System.out.print(" UWU ");Main.loarding();
+    }
+    public static void admin() throws IOException, ParseException, ClassNotFoundException {
+        Scanner scn = new Scanner(System.in);
+        int ch =0;
+        do {
+            System.out.println("\n<========================================================================================================>");
+            System.out.println("\t1.student\t\t2.satff\t\t3.drugs\t\t0.Exit");
+            System.out.print("=>Enter your choice:");
+            ch = scn.nextInt();
+            switch (ch) {
+                case 1:
+                    System.out.println("well come to student section");
+                    Patient.main("Student", "enrollment number");
+                    break;
+                case 2:
+                    System.out.println("well come to staff section");
+                    Patient.main("staff", "staff ID");
+                    break;
+                case 3:
+                    System.out.println("well come to drugs section");
+                    Drug.main();
+                    break;
+                case 0:
+                    System.out.println("thank you!");
+                    break;
+                default:
+                    System.out.println("invalid input!");
+                    break;
+            }
+        }while (ch != 0);
     }
 }

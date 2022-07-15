@@ -9,6 +9,7 @@ public class Vaccine {
         this.E_No=e_No;
     }
 
+
     public static void main() throws IOException, ClassNotFoundException {
 
         VaccinePassword();

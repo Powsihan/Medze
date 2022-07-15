@@ -22,7 +22,7 @@ public class Drug implements Serializable{
     public String toSting(){
         return d_id+" "+name+" "+c_name+" "+mdate+" "+edate+" "+quantity;
     }
-    public static void main( String[] args) throws IOException, ClassNotFoundException, ParseException {
+    public static void main() throws IOException, ClassNotFoundException, ParseException {
         Scanner scn = new Scanner(System.in);
         int ch = 0,n=-1;
 
@@ -141,10 +141,8 @@ public class Drug implements Serializable{
                     String name1 = scn.nextLine().toUpperCase();
                     System.out.print("company name:");
                     String c_name1 = scn.nextLine().toUpperCase();
-                    System.out.print("manufactuerd date:");
-                    String md = Patient.dateinsert();
-                    System.out.print("expired date:");
-                    String ed = Patient.dateinsert();
+                    String md = Patient.dateinsert("manufactured date:");
+                    String ed = Patient.dateinsert("expired date:");
                     System.out.print("Quantity:");
                     int quantity = scnum.nextInt();
                     Drug drug = new Drug(e.d_id,name1,c_name1,md,ed,quantity);
@@ -240,10 +238,8 @@ public class Drug implements Serializable{
             String name1 = scn.nextLine().toUpperCase();
             System.out.print("company name:");
             String c_name1 = scn.nextLine().toUpperCase();
-            System.out.print("manufactuerd date:");
-            String md = Patient.dateinsert();
-            System.out.print("expired date:");
-            String ed = Patient.dateinsert();
+            String md = Patient.dateinsert("manufactuerd date:");
+            String ed = Patient.dateinsert("expired date:");
             System.out.print("Quantity:");
             int quantity = scnum.nextInt();
             Drug drug = new Drug(d_id1,name1,c_name1,md,ed,quantity);

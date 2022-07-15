@@ -54,9 +54,9 @@ public class Patient implements Serializable{
             }
         }while (ch != 0);
     }
-public static String dateinsert(){
+public static String dateinsert(String x){
     Scanner scn = new Scanner(System.in);
-    System.out.print("date of birth:");
+    System.out.print(x);
     String d = scn.next();
     Date date1 = null;
     if (d.matches("[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{4}")) {
@@ -65,12 +65,12 @@ public static String dateinsert(){
             date1 = sdf.parse(d);
         } catch (ParseException e) {
             System.out.println("invalid date format" + d);
-            dateinsert();
+            dateinsert(x);
         }
 
     } else {
         System.out.println("invalid date format" + d+"\ncheck the digits of date MM-02 correct MM-18 wrong");
-        dateinsert();
+        dateinsert(x);
     }
     return d;
 }
@@ -190,7 +190,7 @@ return r;
 
                     System.out.print("name:");
                     String name1 = scn.nextLine().toUpperCase();
-                    String dob1 = dateinsert();
+                    String dob1 = dateinsert("Date of birth:");
                     String gender1 =  gender();
                     String blood1 = bloodinsert();
                     System.out.print("contact number:");
@@ -286,7 +286,7 @@ return r;
             String e_number1 = scn.nextLine().toUpperCase();
             System.out.print("name:");
             String name1 = scn.nextLine().toUpperCase();
-            String date1 = dateinsert();
+            String date1 = dateinsert("Date of birth:");
             String gender1 = gender();
             String blood1 = bloodinsert();
             System.out.print("contact number:");

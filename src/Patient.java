@@ -21,7 +21,7 @@ public class Patient implements Serializable{
     public String toSting(){
         return e_no+" "+name+" "+date+" "+gender+" "+blood+" "+contact+" "+allergy;
     }
-    public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException {
+    public static void main(String patient,String id) throws IOException, ClassNotFoundException, ParseException {
         Scanner scn = new Scanner(System.in);
         int ch = 0,n=-1;
 
@@ -31,19 +31,19 @@ public class Patient implements Serializable{
             ch = scn.nextInt();
             switch (ch){
                 case 1:
-                    Patient.insert();
+                    Patient.insert(patient, id);
                     break;
                 case 2:
-                    Patient.patientlist();
+                    Patient.patientlist(patient, id);
                     break;
                 case 3:
-                    Patient.search();
+                    Patient.search(patient, id);
                     break;
                 case 4:
-                    Patient.update();
+                    Patient.update(patient, id);
                     break;
                 case 5:
-                    Patient.delete();
+                    Patient.delete(patient, id);
                     break;
                 case 0:
                     System.out.println("thank you");
@@ -102,7 +102,7 @@ public static String gender(){
 //        System.out.print("blood group and '+' or '-' eg:- for B+ ----> 3+ ");
         System.out.print("blood group:");
         String blood = scn.next();
-    if(blood.equalsIgnoreCase("ab+") ||blood.equalsIgnoreCase("ab-")||blood.equalsIgnoreCase("a+")||blood.equalsIgnoreCase("a-")||blood.equalsIgnoreCase("b+")||blood.equalsIgnoreCase("b-")||blood.equalsIgnoreCase("o+")||blood.equalsIgnoreCase("o-")){
+    if(blood.equalsIgnoreCase("ab+")||blood.equalsIgnoreCase("ab-")||blood.equalsIgnoreCase("a+")||blood.equalsIgnoreCase("a-")||blood.equalsIgnoreCase("b+")||blood.equalsIgnoreCase("b-")||blood.equalsIgnoreCase("o+")||blood.equalsIgnoreCase("o-")){
         r = blood.toUpperCase();
     }else {
         System.out.println("ivalid input try again!");
@@ -110,8 +110,8 @@ public static String gender(){
     }
 return r;
     }
-    private static void delete() throws IOException,ClassNotFoundException{
-        File file = new File("Patient.txt");
+    private static void delete(String patient,String id) throws IOException,ClassNotFoundException{
+        File file = new File(patient+".txt");
         ObjectInputStream ois = null;
         ObjectOutputStream oos =  null;
         ArrayList<Patient> sal = new ArrayList<>();
@@ -124,7 +124,7 @@ return r;
             sal = (ArrayList<Patient>) ois.readObject();
             ois.close();
             boolean found = false;
-            System.out.print("enter the enrolmet number to delete:");
+            System.out.print("enter the "+id+" to delete:");
             String search = scn.nextLine();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             li = sal.listIterator();
@@ -144,7 +144,7 @@ return r;
             }
 
             if (!found) {
-                System.out.println("student not found");
+                System.out.println(patient+" not found");
             }else {
                 System.out.println("success!");
                 oos = new ObjectOutputStream(new FileOutputStream(file));
@@ -157,8 +157,8 @@ return r;
         System.out.println("==============================================================================================================");
     }
 
-    private static void update() throws IOException, ClassNotFoundException, ParseException {
-        File file = new File("Patient.txt");
+    private static void update(String patient, String id) throws IOException, ClassNotFoundException, ParseException {
+        File file = new File(patient+".txt");
         ObjectInputStream ois  = null;
         ObjectOutputStream oos =  null;
         ArrayList<Patient> sal = new ArrayList<>();
@@ -171,7 +171,7 @@ return r;
             sal = (ArrayList<Patient>) ois.readObject();
             ois.close();
             boolean found = false;
-            System.out.print("enter the enrolmet number to update:");
+            System.out.print("enter the"+id+" to update:");
             String search = scn.nextLine();
             li = sal.listIterator();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
@@ -197,13 +197,13 @@ return r;
                     int contact1 = scnum.nextInt();
                     System.out.print("spectial desaese or allergy:");
                     String allergy1 = scn.nextLine();
-                    Patient patient = new Patient(e.e_no,name1, dob1, gender1, blood1, contact1, allergy1);
-                    li.set(patient);
+                    Patient patient1 = new Patient(e.e_no,name1, dob1, gender1, blood1, contact1, allergy1);
+                    li.set(patient1);
                 }
             }
 
             if (!found) {
-                System.out.println("student not found");
+                System.out.println(patient+" not found");
             } else {
                 System.out.println("success!");
                 oos = new ObjectOutputStream(new FileOutputStream(file));
@@ -214,7 +214,7 @@ return r;
         System.out.println("=============================================================================================================");
     }
 
-    private static void search() throws IOException, ClassNotFoundException {
+    private static void search(String patient,String id) throws IOException, ClassNotFoundException {
         File file = new File("patient.txt");
         ObjectInputStream ois = null;
         ArrayList<Patient> sal = new ArrayList<>();
@@ -225,7 +225,7 @@ return r;
             sal = (ArrayList<Patient>) ois.readObject();
             ois.close();
             boolean found = false;
-            System.out.print("enter the enrolmet number to search:");
+            System.out.print("enter "+id+" number to search:");
             String search = scn.nextLine();
             for (Patient st : sal) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
@@ -237,7 +237,7 @@ return r;
                 }
             }
             if (!found) {
-                System.out.println("satf not found");
+                System.out.println(patient+" not found");
             }
         }else {
             System.out.println("file is not exist!");
@@ -245,8 +245,8 @@ return r;
         System.out.println("=============================================================================================================");
     }
 
-    private static void patientlist() throws IOException, ClassNotFoundException {
-        File file = new File("patient.txt");
+    private static void patientlist(String patient,String id) throws IOException, ClassNotFoundException {
+        File file = new File(patient+".txt");
         ObjectInputStream ois = null;
         ArrayList<Patient> sal =  new ArrayList<>();
         System.out.println("================================================LIST=======================================================");
@@ -267,14 +267,14 @@ return r;
         System.out.println("===============================================================================================================");
     }
 
-    public static void insert() throws IOException, ParseException, ClassNotFoundException {
+    public static void insert(String patient,String id) throws IOException, ParseException, ClassNotFoundException {
         System.out.println("================================================INSERT=======================================================");
         System.out.println("welcome to data insert section");
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
         ObjectOutputStream oos = null;
         ArrayList<Patient> sal = new ArrayList<>();
-        File file =new File("patient.txt");
+        File file =new File(patient+".txt");
         if(file.isFile()){
             ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(file));
             sal = (ArrayList<Patient>) ois.readObject();
@@ -282,7 +282,7 @@ return r;
         }
         int ch =-1;
         while (ch != 0){
-            System.out.print("enrollment number:");
+            System.out.print(id+":");
             String e_number1 = scn.nextLine().toUpperCase();
             System.out.print("name:");
             String name1 = scn.nextLine().toUpperCase();
@@ -293,8 +293,8 @@ return r;
             int contact1 = scnum.nextInt();
             System.out.print("spectial desaese or allergy:");
             String allergy1 = scn.nextLine();
-            Patient patient = new Patient(e_number1, name1, date1, gender1, blood1, contact1, allergy1);
-            sal.add(patient);
+            Patient patient1 = new Patient(e_number1, name1, date1, gender1, blood1, contact1, allergy1);
+            sal.add(patient1);
             ch = iteration();
         }
         oos = new ObjectOutputStream(new FileOutputStream(file));

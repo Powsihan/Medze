@@ -98,8 +98,6 @@ public static String gender(){
     public static String bloodinsert(){
         String r= null;
         Scanner scn = new Scanner(System.in);
-//        System.out.print("\n \t1.O \t2.A \t3.B \t4.AB");
-//        System.out.print("blood group and '+' or '-' eg:- for B+ ----> 3+ ");
         System.out.print("blood group:");
         String blood = scn.next();
     if(blood.equalsIgnoreCase("ab+")||blood.equalsIgnoreCase("ab-")||blood.equalsIgnoreCase("a+")||blood.equalsIgnoreCase("a-")||blood.equalsIgnoreCase("b+")||blood.equalsIgnoreCase("b-")||blood.equalsIgnoreCase("o+")||blood.equalsIgnoreCase("o-")){

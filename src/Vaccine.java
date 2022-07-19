@@ -1,7 +1,7 @@
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+
 
 public class Vaccine {
     String E_No;
@@ -91,7 +91,7 @@ public class Vaccine {
 
     public static void VaccineCreate(){
         try{
-            //File Vaccine=new File("Vaccine Data.txt");
+
             int n, i;
             Scanner VAC=new Scanner(System.in);
             System.out.println("\n<=======================================CREATE LIST===============================================>\n");
@@ -137,18 +137,18 @@ public class Vaccine {
         System.out.println("\n<==================================================================================================>\n");
         System.out.print("Enter the Vaccine Code:");
         String n2=Student.next();
-        File VAcc=new File(n2+".txt");
-        ObjectInputStream ois = null;
-        ArrayList<Vaccine> sal = new ArrayList<>();
-        Scanner VaccineDet=new Scanner(VAcc);
-        if (VAcc.isFile()) {
-            ois = new ObjectInputStream(new FileInputStream(VAcc));
+        File file=new File(n2+".txt");
 
-            ObjectOutputStream oos =null;
+        // Scanner VaccineDet=new Scanner(VAcc);
+        if (file.isFile()) {
+            ArrayList<Vaccine> sal = new ArrayList<>();
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+
+
             sal = (ArrayList<Vaccine>) ois.readObject();
             ois.close();
             boolean found = false;
-            String search = VaccineDet.nextLine();
+            //String search = VaccineDet.nextLine();
 
 
             for (Vaccine st : sal) {
@@ -160,15 +160,17 @@ public class Vaccine {
                     Vaccine StD=new Vaccine(n1);
                     sal.add(StD);
 
-                    PrintWriter Student1=new PrintWriter(VAcc);
-                    Student1.println(n1);
-                    oos=new ObjectOutputStream(new FileOutputStream(VAcc));
+                    // PrintWriter Student1=new PrintWriter(VAcc);
+                    // Student1.println(n1);
+
+                    ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(file));
 
                     System.out.println("Successfully Vaccinated....");
+                    oos.close();
 
-                    Student1.close();
+                    //Student1.close();
                 }
-                VaccineDet.close();
+                // VaccineDet.close();
             }
             if (!found) {
                 System.out.println("Patient not found");
@@ -176,6 +178,9 @@ public class Vaccine {
         }else {
             System.out.println("file is not exist!");
         }
+
+
+        System.out.println("=============================================================================================================");
 
 
 

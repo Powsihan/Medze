@@ -61,7 +61,9 @@ int ch =-1;
                 " \t # #######           ## \t######## \t#######   \t######## \t########\n"+
                 "\t\t\t             ##                                       \n"+
                 "       \t\t\t         ");Main.loarding();System.out.print(" UWU ");Main.loarding();
+                System.out.println("pradeee");
     }
+
     public static void admin() throws IOException, ParseException, ClassNotFoundException {
         Scanner scn = new Scanner(System.in);
         int ch =0;

@@ -9,7 +9,6 @@ public class Vaccine {
         this.E_No=e_No;
     }
 
-
     public static void main() throws IOException, ClassNotFoundException {
 
         VaccinePassword();
@@ -129,59 +128,68 @@ public class Vaccine {
     }
 
     public static void Student() throws IOException, ClassNotFoundException {
+        try{
+            Scanner Student=new Scanner(System.in);
+            System.out.print("Enter the Student EnrollNo:");
+            String n1=Student.next();
+            System.out.println("\n<=======================================VACCINE LIST===============================================>\n");
+            VaccineList();
+            System.out.println("\n<==================================================================================================>\n");
+            System.out.print("Enter the Vaccine Code:");
+            String n2=Student.next();
+            File file=new File(n2+".txt");
 
-        Scanner Student=new Scanner(System.in);
-        System.out.print("Enter the Student EnrollNo:");
-        String n1=Student.next();
-        System.out.println("\n<=======================================VACCINE LIST===============================================>\n");
-        VaccineList();
-        System.out.println("\n<==================================================================================================>\n");
-        System.out.print("Enter the Vaccine Code:");
-        String n2=Student.next();
-        File file=new File(n2+".txt");
-
-        // Scanner VaccineDet=new Scanner(VAcc);
-        if (file.isFile()) {
-            ArrayList<Vaccine> sal = new ArrayList<>();
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
-
-
-            sal = (ArrayList<Vaccine>) ois.readObject();
-            ois.close();
-            boolean found = false;
-            //String search = VaccineDet.nextLine();
+            // Scanner VaccineDet=new Scanner(VAcc);
+            if (file.isFile()) {
+                ArrayList<Vaccine> sal = new ArrayList<>();
+                ObjectInputStream ois;
+                ois = new ObjectInputStream(new FileInputStream(file));
 
 
-            for (Vaccine st : sal) {
-                if (n1.equals(st.E_No)) {
-                    System.out.println("Already Vaccinated....");
-                    found = true;
+
+                sal = (ArrayList<Vaccine>) ois.readObject();
+                ois.close();
+                boolean found = false;
+                //String search = VaccineDet.nextLine();
+
+
+                for (Vaccine st : sal) {
+                    if (n1.equals(st.E_No)) {
+                        System.out.println("Already Vaccinated....");
+                        found = true;
+                    }
+                    else{
+                        Vaccine StD=new Vaccine(n1);
+                        sal.add(StD);
+
+                        // PrintWriter Student1=new PrintWriter(VAcc);
+                        // Student1.println(n1);
+                        ObjectOutputStream oos;
+
+                        oos=new ObjectOutputStream(new FileOutputStream(file));
+
+                        System.out.println("Successfully Vaccinated....");
+                        oos.close();
+
+                        //Student1.close();
+                    }
+                    // VaccineDet.close();
                 }
-                else{
-                    Vaccine StD=new Vaccine(n1);
-                    sal.add(StD);
-
-                    // PrintWriter Student1=new PrintWriter(VAcc);
-                    // Student1.println(n1);
-
-                    ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(file));
-
-                    System.out.println("Successfully Vaccinated....");
-                    oos.close();
-
-                    //Student1.close();
+                if (!found) {
+                    System.out.println("Patient not found");
                 }
-                // VaccineDet.close();
+            }else {
+                System.out.println("file is not exist!");
             }
-            if (!found) {
-                System.out.println("Patient not found");
-            }
-        }else {
-            System.out.println("file is not exist!");
+
+
+            System.out.println("=============================================================================================================");
+
+
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
-
-
-        System.out.println("=============================================================================================================");
 
 
 

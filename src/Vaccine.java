@@ -1,20 +1,15 @@
 import java.io.*;
-import java.util.ArrayList;
 import java.util.*;
 
 
-public class Vaccine {
-    String E_No;
-    Vaccine(String e_No){
-        this.E_No=e_No;
-    }
+public class Vaccine implements Serializable{
 
-    public static void main() throws IOException, ClassNotFoundException {
+    public static void main() {
 
         VaccinePassword();
     }
 
-    public static void Vaccination1() throws IOException, ClassNotFoundException {
+    public static void Vaccination1()  {
         System.out.println("<================================================Welcome================================================>");
         System.out.println(".........................................................................................................");
         System.out.println(".........................................................................................................");
@@ -33,41 +28,45 @@ public class Vaccine {
 
         do{
             System.out.println("<========================================================================================================>");
-            System.out.println("\t1.Student\t2.Staff\t\t3.Add Vaccine\t4.Display Vaccine List\t\t0.Exit");
+            System.out.println("\t1.Add Vaccine\t2.View Vaccine\t\t3.Vaccination\t\t0.Exit");
             System.out.println("\n<======================================================================================>");
             System.out.print("=>Enter your choice:");
             ch=Vaccine.nextInt();
             switch (ch){
                 case 1:
-                    Student();
-
-                    break;
-                case 2:
-                    Student();
-                    break;
-                case 3:
                     VaccineCreate();
                     break;
-                case 4:
+                case 2:
                     VaccineList();
+                    break;
+                case 3:
+                    System.out.println("<========================================================================================================>");
+                    System.out.println("\t1.Student\t2.Staff\t\t0.Exit");
+                    System.out.println("\n<======================================================================================>");
+                    System.out.print("=>Enter your choice:");
+                    ch=Vaccine.nextInt();
+                    switch (ch){
+                        case 1:
+                            Student();
+                            break;
+                        case 2:
+                            Staff();
+                            break;
+                        default:
+                            break;
+                    }
                     break;
 
                 default:
                     break;
 
-
-
             }
 
         }while(ch!=0);
 
-
-
     }
 
-
-
-    public static void VaccinePassword() throws IOException, ClassNotFoundException {
+    public static void VaccinePassword() {
         Scanner pass= new Scanner(System.in);
         int passV;
         do{
@@ -91,13 +90,12 @@ public class Vaccine {
 
     public static void VaccineCreate(){
         try{
-
             int n, i;
             Scanner VAC=new Scanner(System.in);
             System.out.println("\n<=======================================CREATE LIST===============================================>\n");
             System.out.print("Enter how many vaccine you want to add:");
             n=VAC.nextInt();
-            FileWriter Vac=new FileWriter("Vaccinelist.txt",true);
+            FileWriter Vac=new FileWriter("Vaccine-list.txt",true);
             PrintWriter Vaccine=new PrintWriter(Vac);
             System.out.println("\n<=======================================CREATE LIST===============================================>\n");
             for(i=0;i<n;i++){
@@ -127,7 +125,7 @@ public class Vaccine {
 
     }
 
-    public static void Student() throws IOException, ClassNotFoundException {
+    public static void Student()  {
         try{
             Scanner Student=new Scanner(System.in);
             System.out.print("Enter the Student EnrollNo:");
@@ -137,70 +135,88 @@ public class Vaccine {
             System.out.println("\n<==================================================================================================>\n");
             System.out.print("Enter the Vaccine Code:");
             String n2=Student.next();
-            File file=new File(n2+".txt");
+            File VaccineName=new File(n2+".txt");
 
-            // Scanner VaccineDet=new Scanner(VAcc);
-            if (file.isFile()) {
-                ArrayList<Vaccine> sal = new ArrayList<>();
-                ObjectInputStream ois;
-                ois = new ObjectInputStream(new FileInputStream(file));
-
-
-
-                sal = (ArrayList<Vaccine>) ois.readObject();
-                ois.close();
-                boolean found = false;
-                //String search = VaccineDet.nextLine();
-
-
-                for (Vaccine st : sal) {
-                    if (n1.equals(st.E_No)) {
-                        System.out.println("Already Vaccinated....");
+            if(VaccineName.isFile()){
+                BufferedReader ois;
+                ois=new BufferedReader(new FileReader(VaccineName));
+                String li=ois.readLine();
+                boolean found=false;
+                while (li.isBlank()) {
+                    if (n1.equals(li)) {
                         found = true;
-                    }
-                    else{
-                        Vaccine StD=new Vaccine(n1);
-                        sal.add(StD);
-
-                        // PrintWriter Student1=new PrintWriter(VAcc);
-                        // Student1.println(n1);
-                        ObjectOutputStream oos;
-
-                        oos=new ObjectOutputStream(new FileOutputStream(file));
-
+                    } else {
+                        li = n1;
+                        FileWriter oos;
+                        oos = new FileWriter(VaccineName, true);
+                        BufferedWriter ops = new BufferedWriter(oos);
+                        ops.write(li);
+                        ops.newLine();
+                        ops.flush();
+                        ops.close();
                         System.out.println("Successfully Vaccinated....");
-                        oos.close();
-
-                        //Student1.close();
                     }
-                    // VaccineDet.close();
                 }
-                if (!found) {
-                    System.out.println("Patient not found");
+                if(found){
+                    System.out.println("Already Vaccinated....");
                 }
-            }else {
+
+            }else{
                 System.out.println("file is not exist!");
             }
-
-
-            System.out.println("=============================================================================================================");
-
-
-
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+    }
 
+    public static void Staff()  {
+        try{
+            Scanner Staff=new Scanner(System.in);
+            System.out.print("Enter the Staff EnrollNo:");
+            String n1=Staff.next();
+            System.out.println("\n<=======================================VACCINE LIST===============================================>\n");
+            VaccineList();
+            System.out.println("\n<==================================================================================================>\n");
+            System.out.print("Enter the Vaccine Code:");
+            String n2=Staff.next();
+            File VaccineName=new File(n2+".txt");
 
+            if(VaccineName.isFile()){
+                BufferedReader ois;
+                ois=new BufferedReader(new FileReader(VaccineName));
+                String li=ois.readLine();
+                boolean found=false;
+                while (li.isBlank()) {
+                    if (n1.equals(li)) {
+                        found = true;
+                    } else {
+                        li = n1;
+                        FileWriter oos;
+                        oos = new FileWriter(VaccineName, true);
+                        BufferedWriter ops = new BufferedWriter(oos);
+                        ops.write(li);
+                        ops.newLine();
+                        ops.flush();
+                        ops.close();
+                        System.out.println("Successfully Vaccinated....");
+                    }
+                }
+                if(found){
+                    System.out.println("Already Vaccinated....");
+                }
 
-
-
+            }else{
+                System.out.println("file is not exist!");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void VaccineList(){
         try{
 
-            File VAc=new File("Vaccinelist.txt");
+            File VAc=new File("Vaccine-list.txt");
             Scanner Vaccine=new Scanner(VAc);
             while(Vaccine.hasNextLine()){
 

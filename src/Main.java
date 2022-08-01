@@ -21,6 +21,7 @@ int ch =-1;
                     break;
                 case 2:
                     System.out.println("wel come doctor section");
+                    Doctor.main();
                     break;
                 case 3:
                    System.out.println("wel come");

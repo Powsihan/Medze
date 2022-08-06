@@ -17,18 +17,18 @@ public class Doctor implements Serializable{
             System.out.println("<==============================================================================================================>");
             System.out.println("<================================================Doctor Section================================================>");
             System.out.println("<==============================================================================================================>");
-            System.out.println("\t1.View details\t2.prescription\t\t0.Exit");
+            System.out.println("\t1.Student\t2.Staff\t\t0.Exit");
             System.out.println("\n<========================================================================================>");
             System.out.print("=>Enter your choice:");
             ch= DoctorI.nextInt();
             System.out.println("<==============================================================================================================>");
             switch (ch){
                 case 1:
-                    System.out.println("x");
+                    PatientV("Student","EnrollNo");
 
                     break;
                 case 2:
-                    prescription();
+                    PatientV("Staff","ID");
                     break;
 
 
@@ -39,16 +39,20 @@ public class Doctor implements Serializable{
         }while(ch!=0);
     }
 
-    public static void prescription(){
+    public static void PatientV(String patient,String ID){
         try{
             Scanner Presc=new Scanner(System.in);
 
             System.out.println("<=============================================Prescription Section=============================================>");
             System.out.println("<==============================================================================================================>\n");
-            System.out.print("Enter the Student Enroll No:");
-            String n=Presc.next();
+        //  File PatientName=null;
+            Patient.search(patient, ID);
             System.out.print("Display Patient details");
-            FileWriter PatientName=new FileWriter(n+".txt");
+
+          //  if (PatientName.isFile()) {
+                FileWriter PatientName=new FileWriter(ID+".txt");
+          //  }
+
             System.out.println("\n<===================================================================================>\n");
             PatientName.close();
         }catch(Exception e){

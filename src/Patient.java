@@ -212,7 +212,7 @@ return r;
         System.out.println("=============================================================================================================");
     }
 
-    private static void search(String patient,String id) throws IOException, ClassNotFoundException {
+    public static void search(String patient,String id) throws IOException, ClassNotFoundException {
         File file = new File("patient.txt");
         ObjectInputStream ois = null;
         ArrayList<Patient> sal = new ArrayList<>();

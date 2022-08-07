@@ -1,3 +1,4 @@
+import pradee.*;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -5,22 +6,61 @@ import java.util.*;
 
 
 public class Drug implements Serializable{
-    String d_id,name,c_name;
-    Date mdate = null;
-    Date edate = null;
-    int quantity;
-    Drug(String d_id1,String name1,String c_name1,String mdate1,String edate1,int quantity1) throws ParseException {
-        SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
-        this.d_id = d_id1;
-        this.name = name1;
-        this.c_name = c_name1;
-        this.mdate = sfd.parse(String.valueOf(mdate1));
-        this.edate = sfd.parse(String.valueOf(edate1));
-        this.quantity = quantity1;
-       
+   private String d_id,name,c_name;
+    private Date mdate = null;
+    private Date edate = null;
+   private int quantity;
+    SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
+    public String getD_id() {
+        return d_id;
     }
+
+    public void setD_id(String d_id) {
+        this.d_id = d_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getC_name() {
+        return c_name;
+    }
+
+    public void setC_name(String c_name) {
+        this.c_name = c_name;
+    }
+
+    public Date getMdate() {
+        return mdate;
+    }
+
+    public void setMdate(String mdate) throws ParseException {
+        this.mdate = sfd.parse(String.valueOf(mdate));
+    }
+
+    public Date getEdate() {
+        return edate;
+    }
+
+    public void setEdate(String edate) throws ParseException {
+        this.edate = sfd.parse(String.valueOf(edate));
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public String toSting(){
-        return d_id+" "+name+" "+c_name+" "+mdate+" "+edate+" "+quantity;
+        return d_id+" | "+name+" | "+c_name+" | "+MedzeUtil.dateViwe(mdate)+" | "+MedzeUtil.dateViwe(edate)+" | "+quantity;
     }
     public static void main() throws IOException, ClassNotFoundException, ParseException {
         Scanner scn = new Scanner(System.in);
@@ -60,38 +100,24 @@ public class Drug implements Serializable{
         File file = new File("drug.txt");
         ObjectInputStream ois = null;
         ObjectOutputStream oos =  null;
-        ArrayList<Drug> sal = new ArrayList<>();
+        PradiArray<Drug> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
-        Scanner scnum = new Scanner(System.in);
-        ListIterator li = null;
         System.out.println("================================================DELETE=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (ArrayList<Drug>) ois.readObject();
+            sal = (PradiArray<Drug>) ois.readObject();
             ois.close();
             boolean found = false;
             System.out.print("enter the Drug ID to delete:");
             String search = scn.nextLine();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
-            li = sal.listIterator();
             for (Drug st : sal) {
-                String mD = sdf.format(st.mdate);
-                String eD = sdf.format(st.edate);
-
                 if (search.equals(st.d_id)) {
-
-                    System.out.println(st.d_id+" "+st.name+" "+st.c_name+" "+mD+" "+eD+" "+st.quantity+"deleted!");
-                  
+                    System.out.println(st+"deleted!");
+                    sal.remove(st);
                     found = true;
                 }
             }
-            while (li.hasNext()) {
-                Drug e = (Drug) li.next();
-                if (search.equals(e.d_id)){
-                    li.remove();
-                }
-            }
-
             if (!found) {
                 System.out.println("Drug not found");
             }else {
@@ -110,49 +136,45 @@ public class Drug implements Serializable{
         File file = new File("Drug.txt");
         ObjectInputStream ois  = null;
         ObjectOutputStream oos =  null;
-        ArrayList<Drug> sal = new ArrayList<>();
+        PradiArray<Drug> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
-        ListIterator li =null;
         System.out.println("================================================UPDATE=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (ArrayList<Drug>) ois.readObject();
+            sal = (PradiArray<Drug>) ois.readObject();
+            Drug old = new Drug();
             ois.close();
             boolean found = false;
             System.out.print("enter theDrug ID to update:");
             String search = scn.nextLine();
-            li = sal.listIterator();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             for (Drug st : sal) {
-               String mD = sdf.format(st.mdate);
-                String eD = sdf.format(st.edate);
                 if (search.equals(st.d_id)) {
-
-                    System.out.println(st.d_id+" "+st.name+" "+st.c_name+" "+mD+" "+eD+" "+st.quantity+"deleted!");
+                    System.out.println(st+"deleted!");
                     System.out.println("--------------------------------------------------------------------------------------------------------------------");
                     found = true;
+                    old = st;
                 }
             }
-            while (li.hasNext()) {
-                Drug e = (Drug) li.next();
-                if (search.equals(e.d_id)) {
-                    System.out.print("name:");
-                    String name1 = scn.nextLine().toUpperCase();
-                    System.out.print("company name:");
-                    String c_name1 = scn.nextLine().toUpperCase();
-                    String md = Patient.dateinsert("manufactured date:");
-                    String ed = Patient.dateinsert("expired date:");
-                    System.out.print("Quantity:");
-                    int quantity = scnum.nextInt();
-                    Drug drug = new Drug(e.d_id,name1,c_name1,md,ed,quantity);
-                    li.set(drug);
-                }
-            }
-
             if (!found) {
                 System.out.println("Drug not found");
             } else {
+                Drug drug = new Drug();
+                drug.setD_id(old.getD_id());
+                System.out.print("name:");
+                drug.setC_name(scn.nextLine().toUpperCase());
+                System.out.print("company name:");
+                drug.setC_name(scn.nextLine().toUpperCase());
+                drug.setMdate(MedzeUtil.dateinsert("manufactuerd date:"));
+                drug.setEdate(MedzeUtil.dateinsert("expired date:"));
+                System.out.print("Quantity:");
+                drug.setQuantity(scnum.nextInt());
+                sal.update(old,drug);
+                System.out.println("====================================================================================================================");
+                System.out.println(drug);
+                System.out.println("====================================================================================================================");
+
                 System.out.println("success!");
                 oos = new ObjectOutputStream(new FileOutputStream(file));
                 oos.writeObject(sal);
@@ -165,22 +187,19 @@ public class Drug implements Serializable{
     private static void search() throws IOException, ClassNotFoundException {
         File file = new File("Drug.txt");
         ObjectInputStream ois = null;
-        ArrayList<Drug> sal = new ArrayList<>();
+        PradiArray<Drug> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         System.out.println("================================================SEARCH=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (ArrayList<Drug>) ois.readObject();
+            sal = (PradiArray<Drug>) ois.readObject();
             ois.close();
             boolean found = false;
             System.out.print("enter Drug ID number to search:");
             String search = scn.nextLine();
             for (Drug st : sal) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
-               String mD = sdf.format(st.mdate);
-                String eD = sdf.format(st.edate);
                 if (search.equals(st.d_id)) {
-                    System.out.println(st.d_id+" "+st.name+" "+st.c_name+" "+mD+" "+eD+" "+st.quantity);
+                    System.out.println(st);
                     System.out.println("--------------------------------------------------------------------------------------------------------------------");
                     found = true;
                 }
@@ -197,18 +216,14 @@ public class Drug implements Serializable{
     private static void Druglist() throws IOException, ClassNotFoundException {
         File file = new File("Drug.txt");
         ObjectInputStream ois = null;
-        ArrayList<Drug> sal =  new ArrayList<>();
+        PradiArray<Drug> sal =  new PradiArray<>();
         System.out.println("================================================LIST=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (ArrayList<Drug>) ois.readObject();
+            sal = (PradiArray<Drug>) ois.readObject();
             ois.close();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
-
             for (Drug st : sal) {
-               String mD = sdf.format(st.mdate);
-                String eD = sdf.format(st.edate);
-                System.out.println(st.d_id+" "+st.name+" "+st.c_name+" "+mD+" "+eD+" "+st.quantity);
+                System.out.println(st);
                 System.out.println("--------------------------------------------------------------------------------------------------------------------");
             }
         }else {
@@ -223,28 +238,32 @@ public class Drug implements Serializable{
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
         ObjectOutputStream oos = null;
-        ArrayList<Drug> sal = new ArrayList<>();
+        PradiArray<Drug> sal = new PradiArray<>();
         File file =new File("Drug.txt");
         if(file.isFile()){
             ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(file));
-            sal = (ArrayList<Drug>) ois.readObject();
+            sal = (PradiArray<Drug>) ois.readObject();
             ois.close();
         }
         int ch =-1;
         while (ch != 0){
+            Drug drug = new Drug();
             System.out.print("Drug ID:");
-            String d_id1 = scn.nextLine().toUpperCase();
+            drug.setD_id(scn.nextLine().toUpperCase());
             System.out.print("name:");
-            String name1 = scn.nextLine().toUpperCase();
+            drug.setC_name(scn.nextLine().toUpperCase());
             System.out.print("company name:");
-            String c_name1 = scn.nextLine().toUpperCase();
-            String md = Patient.dateinsert("manufactuerd date:");
-            String ed = Patient.dateinsert("expired date:");
+            drug.setC_name(scn.nextLine().toUpperCase());
+            drug.setMdate(MedzeUtil.dateinsert("manufactuerd date:"));
+            drug.setEdate(MedzeUtil.dateinsert("expired date:"));
             System.out.print("Quantity:");
-            int quantity = scnum.nextInt();
-            Drug drug = new Drug(d_id1,name1,c_name1,md,ed,quantity);
+            drug.setQuantity(scnum.nextInt());
             sal.add(drug);
-            ch = iteration();
+            System.out.println("====================================================================================================================");
+            System.out.println(drug);
+            System.out.println("====================================================================================================================");
+
+            ch = MedzeUtil.iteration();
         }
         oos = new ObjectOutputStream(new FileOutputStream(file));
         oos.writeObject(sal);
@@ -252,19 +271,5 @@ public class Drug implements Serializable{
         System.out.println("success!");
         System.out.println("=============================================================================================================");
     }
-    public static int iteration(){
-        Scanner scn = new Scanner(System.in);
-        System.out.println("1.next \t0.back choise:");
-        int ch = scn.nextInt();
-        if (ch == 1){
-            System.out.println("====================================new====================================");
-        } else if (ch == 0) {
-            System.out.println("thank you");
-            return ch;
-        }else {
-            System.out.print("invalid input");
-            Drug.iteration();
-        }
-        return ch;
-    }
+
 }

@@ -76,11 +76,11 @@ int ch =-1;
             switch (ch) {
                 case 1:
                     System.out.println("well come to student section");
-                    Patient.main("Student", "enrollment number");
+                    Admin.main("Student", "enrollment number");
                     break;
                 case 2:
                     System.out.println("well come to staff section");
-                    Patient.main("staff", "staff ID");
+                    Admin.main("staff", "staff ID");
                     break;
                 case 3:
                     System.out.println("well come to drugs section");

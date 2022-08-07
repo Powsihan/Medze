@@ -43,31 +43,23 @@ public class Admin implements Serializable{
         File file = new File(patient+".txt");
         ObjectInputStream ois = null;
         ObjectOutputStream oos =  null;
-        PradeeList<Patient> sal;
+        PradiArray<Patient> sal;
         Scanner scn = new Scanner(System.in);
-        Scanner scnum = new Scanner(System.in);
-        ListIterator li = null;
         System.out.println("================================================DELETE=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (PradeeList<Patient>) ois.readObject();
+            sal = (PradiArray<Patient>) ois.readObject();
             ois.close();
             boolean found = false;
             System.out.print("enter the "+id+" to delete:");
             String search = scn.nextLine();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
-            li = (ListIterator) sal.iterator();
             for (Patient st : sal) {
                 if (search.equalsIgnoreCase(st.getE_no())) {
                     System.out.println(st.getE_no() + " " + st.getName() + " " + MedzeUtil.dateViwe(st.getDate()) + " " + st.getGender() + " " + st.getBlood() + " " + st.getContact() + " " + st.getAllergy());
                     System.out.println("--------------------------------------------------------------------------------------------------------------------");
                     found = true;
-                }
-            }
-            while (li.hasNext()) {
-                Patient e = (Patient) li.next();
-                if (search.equals(e.getE_no())){
-                    li.remove();
+                    sal.remove(st);
                 }
             }
 
@@ -89,67 +81,64 @@ public class Admin implements Serializable{
         File file = new File(patient+".txt");
         ObjectInputStream ois  = null;
         ObjectOutputStream oos =  null;
-        PradeeList<Patient> sal = new PradeeList<>();
+        PradiArray<Patient> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
-        ListIterator<Patient> li =null;
+        Patient oldPat = new Patient();
         System.out.println("================================================UPDATE=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (PradeeList<Patient>) ois.readObject();
+            sal = (PradiArray<Patient>) ois.readObject();
             ois.close();
             boolean found = false;
             System.out.print("enter the"+id+" to update:");
             String search = scn.nextLine();
-            li = (ListIterator<Patient>) sal.iterator();
             for (Patient st : sal) {
                 if (search.equalsIgnoreCase(st.getE_no())) {
                     System.out.println(st.getE_no() + " " + st.getName() + " " + MedzeUtil.dateViwe(st.getDate()) + " " + st.getGender() + " " + st.getBlood() + " " + st.getContact() + " " + st.getAllergy());
                     System.out.println("--------------------------------------------------------------------------------------------------------------------");
+                    oldPat = st;
                     found = true;
                 }
             }
-            while (li.hasNext()) {
-                Patient e = (Patient) li.next();
-                if (search.equalsIgnoreCase(e.getE_no())) {
-                    Patient patient1 = new Patient();
-                    System.out.print("name:");
-                    patient1.setName(scn.nextLine().toUpperCase());
-                    patient1.setDate(MedzeUtil.dateinsert("Date of birth:"));
-                    patient1.setGender(MedzeUtil.gender());
-                    patient1.setBlood(MedzeUtil.bloodinsert());
-                    System.out.print("contact number:");
-                    patient1.setContact(scnum.nextInt());
-                    System.out.print("spectial desaese or allergy:");
-                    patient1.setAllergy(scn.nextLine());
-                    li.set(patient1);
-                    System.out.println("===================================================");
-                    System.out.println(patient1);
-                    System.out.println("===================================================");
-                }
-            }
-
             if (!found) {
                 System.out.println(patient+" not found");
             } else {
+                Patient patient1 = new Patient();
+                patient1.setE_no(oldPat.getE_no());
+                System.out.print("name:");
+                patient1.setName(scn.nextLine().toUpperCase());
+                patient1.setDate(MedzeUtil.dateinsert("Date of birth:"));
+                patient1.setGender(MedzeUtil.gender());
+                patient1.setBlood(MedzeUtil.bloodinsert());
+                System.out.print("contact number:");
+                patient1.setContact(scnum.nextInt());
+                System.out.print("spectial desaese or allergy:");
+                patient1.setAllergy(scn.nextLine());
+                sal.update(oldPat,patient1);
+                System.out.println("====================================================================================================================");
+                System.out.println(patient1);
+                System.out.println("====================================================================================================================");
                 System.out.println("success!");
                 oos = new ObjectOutputStream(new FileOutputStream(file));
                 oos.writeObject(sal);
                 oos.close();
             }
-        }
+        } else {
+        System.out.println("file is not exist!");
+    }
         System.out.println("=============================================================================================================");
     }
 
     private static void search(String patient,String id) throws IOException, ClassNotFoundException {
         File file = new File(patient+".txt");
         ObjectInputStream ois = null;
-        PradeeList<Patient> sal = new PradeeList<>();
+        PradiArray<Patient> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         System.out.println("================================================SEARCH=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (PradeeList<Patient>) ois.readObject();
+            sal = (PradiArray<Patient>) ois.readObject();
             ois.close();
             boolean found = false;
             System.out.print("enter "+id+" number to search:");
@@ -173,11 +162,11 @@ public class Admin implements Serializable{
     private static void patientlist(String patient,String id) throws IOException, ClassNotFoundException {
         File file = new File(patient+".txt");
         ObjectInputStream ois = null;
-        PradeeList<Patient> sal =  new PradeeList<>();
+        PradiArray<Patient> sal =  new PradiArray<>();
         System.out.println("================================================LIST=======================================================");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (PradeeList<Patient>)ois.readObject();
+            sal = (PradiArray<Patient>)ois.readObject();
             ois.close();
             for (Patient st : sal) {
                 System.out.println(st.getE_no() + " " + st.getName() + " " + MedzeUtil.dateViwe(st.getDate()) + " " + st.getGender() + " " + st.getBlood() + " " + st.getContact()+ " " + st.getAllergy() );
@@ -195,11 +184,11 @@ public class Admin implements Serializable{
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
         ObjectOutputStream oos = null;
-        PradeeList<Patient> sal = new PradeeList<>();
+        PradiArray<Patient> sal = new PradiArray<>();
         File file =new File(patient+".txt");
         if(file.isFile()){
             ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(file));
-            sal = (PradeeList<Patient>) ois.readObject();
+            sal = (PradiArray<Patient>) ois.readObject();
             ois.close();
         }
         int ch =-1;
@@ -216,10 +205,10 @@ public class Admin implements Serializable{
             patient1.setContact(scnum.nextInt());
             System.out.print("spectial desaese or allergy:");
             patient1.setAllergy(scn.nextLine());
-            sal.insertAtBeginning(patient1);
-            System.out.println("===================================================");
+            sal.add(patient1);
+            System.out.println("====================================================================================================================");
             System.out.println(patient1);
-            System.out.println("===================================================");
+            System.out.println("====================================================================================================================");
             ch = MedzeUtil.iteration();
         }
         oos = new ObjectOutputStream(new FileOutputStream(file));

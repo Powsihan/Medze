@@ -1,3 +1,4 @@
+import pradee.MedzeUtil;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -68,7 +69,7 @@ public class Patient implements Serializable{
 
     @Override
     public String toString() {
-        return e_no+" "+name+" "+date+" "+gender+" "+blood+" "+contact+" "+allergy;
+        return e_no+" | "+name+" | "+ MedzeUtil.dateViwe(date)+" | "+gender+" | "+blood+" | "+contact+" | "+allergy;
     }
 
 }

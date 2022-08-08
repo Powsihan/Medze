@@ -73,6 +73,22 @@ public class MedzeUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
         return sdf.format(x);
     }
+    public static String contact(){
+        String fine =null;
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Contact:");
+        String d = scn.next();
+        if (d.matches("[0]{1}[0-9]{1}")) {
+                fine = d;
+
+        } else {
+            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+            System.out.println("\t\t\tInvalid Phone Number" + d+"\nCheck the number Eg:0771234567");
+            System.out.println("<-------------------------------------------------------------------------------------------------------->");
+            contact();
+        }
+        return fine;
+    }
     public static int iteration(){
         Scanner scn = new Scanner(System.in);
         System.out.println("\n<========================================================================================================>");

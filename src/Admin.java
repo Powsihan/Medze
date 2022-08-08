@@ -59,6 +59,7 @@ public class Admin implements Serializable{
             ois.close();
             for (Patient st : sal) {
                 if (search.equalsIgnoreCase(st.getE_no())) {
+                    System.out.println(st);
                     found = true;
                 }
             }

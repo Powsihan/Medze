@@ -78,7 +78,7 @@ public class MedzeUtil {
         Scanner scn = new Scanner(System.in);
         System.out.print("Contact:");
         String d = scn.next();
-        if (d.matches("[0]{1}[0-9]{1}")) {
+        if (d.matches("[0]{1}[0-9]{9}")) {
                 fine = d;
 
         } else {

@@ -17,12 +17,17 @@ public class MedzeUtil {
                 Date date1 = sdf.parse(d);
                 D = d;
             } catch (ParseException e) {
-                System.out.println("invalid date format" + d);
+                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("Invalid date format" + d);
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
                 dateinsert(x);
             }
 
         } else {
-            System.out.println("invalid date format" + d+"\ncheck the digits of date MM-02 correct MM-18 wrong");
+            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+            System.out.println("\t\t\tInvalid Date Format" + d+"\nCheck the digits of date MM-02 correct MM-18 wrong");
+            System.out.println("<-------------------------------------------------------------------------------------------------------->");
+
             dateinsert(x);
         }
         return D;
@@ -31,7 +36,7 @@ public class MedzeUtil {
         int i;
         String g =null;
         Scanner scn =  new Scanner(System.in);
-        System.out.print("1.male\t 2.female\t Gender:");
+        System.out.print("=>\t"+"Gender"+" (1.Male\t 2.Female\t)"+" : ");
         i = scn.nextInt();
         switch (i) {
             case 1:
@@ -41,7 +46,9 @@ public class MedzeUtil {
                 g="FEMALE";
                 break;
             default:
-                System.out.println("invalid input!");
+                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Invalid Input...");
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
                 g=gender();
                 break;
         }
@@ -50,12 +57,14 @@ public class MedzeUtil {
     public static String bloodinsert(){
         String r= null;
         Scanner scn = new Scanner(System.in);
-        System.out.print("blood group:");
+        System.out.print("=>\t"+"Blood Group"+" (a+,a-,b+,b-,o+,o-,ab+,ab-)"+" : ");
         String blood = scn.next();
         if(blood.equalsIgnoreCase("ab+")||blood.equalsIgnoreCase("ab-")||blood.equalsIgnoreCase("a+")||blood.equalsIgnoreCase("a-")||blood.equalsIgnoreCase("b+")||blood.equalsIgnoreCase("b-")||blood.equalsIgnoreCase("o+")||blood.equalsIgnoreCase("o-")){
             r = blood.toUpperCase();
         }else {
-            System.out.println("ivalid input try again!");
+            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+            System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Invalid Input...");
+            System.out.println("<-------------------------------------------------------------------------------------------------------->");
             r = bloodinsert();
         }
         return r;
@@ -66,15 +75,24 @@ public class MedzeUtil {
     }
     public static int iteration(){
         Scanner scn = new Scanner(System.in);
-        System.out.println("\n1.next \t0.back choise:");
-        int ch = 0;
+        System.out.println("\n<========================================================================================================>");
+        System.out.println("\t\t\t\t\t\t\t\t1.Next \t\t0.Back Choice");
+        System.out.println("<-------------------------------------------------------------------------------------------------------->");
+        System.out.print("=>Enter Your Choice : ");
+
+
+        int ch=0;
         ch = scn.nextInt();
         if (ch == 1){
-            System.out.println("====================================new====================================");
+            System.out.println("\n<======================================================New===============================================>");
         } else if (ch == 0) {
-            System.out.println("thank you");
+            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+            System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Thank You...");
+            System.out.println("<-------------------------------------------------------------------------------------------------------->");
         }else {
-            System.out.print("invalid input");
+            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+            System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Invalid Input...");
+            System.out.println("<-------------------------------------------------------------------------------------------------------->");
             iteration();
         }
         return ch;

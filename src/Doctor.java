@@ -46,7 +46,7 @@ public class Doctor implements Serializable{
             System.out.println("<=============================================Prescription Section=============================================>");
             System.out.println("<==============================================================================================================>\n");
         //  File PatientName=null;
-            Patient.search(patient, ID);
+           // Patient.search(patient, ID);
             System.out.print("Display Patient details");
 
           //  if (PatientName.isFile()) {

@@ -7,20 +7,20 @@ import java.util.Scanner;
 
 public class MedzeUtil {
     public static String dateinsert(String x){
-        String D=null;
+        String D = null;
         Scanner scn = new Scanner(System.in);
         System.out.print(x);
         String d = scn.next();
-        if (d.matches("[0-3]{1}[0-9]{1}[/]{1}[0,1]{1}[0-9]{1}[/]{1}[1-9]{1}[0-9]{3}")) {
+        if (d.matches("[0-3]{1}[0-9]{1}[/]{1}[0,1]{1}[0-9]{1}[/]{1}[1-9]{1}[0-9]{3}")&&!d.matches("[3]{1}[2-9]{1}[/]{1}[0,1]{1}[0-9]{1}[/]{1}[1-9]{1}[0-9]{3}")){
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 Date date1 = sdf.parse(d);
                 D = d;
             } catch (ParseException e) {
                 System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
-                System.out.println("Invalid date format" + d);
+                System.out.println("Invalid date format" + d +e);
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
-                dateinsert(x);
+               D = dateinsert(x);
             }
 
         } else {
@@ -28,7 +28,7 @@ public class MedzeUtil {
             System.out.println("\t\t\tInvalid Date Format" + d+"\nCheck the digits of date MM-02 correct MM-18 wrong");
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
 
-            dateinsert(x);
+           D = dateinsert(x);
         }
         return D;
     }
@@ -109,7 +109,7 @@ public class MedzeUtil {
             System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
             System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Invalid Input...");
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
-            iteration();
+           ch = iteration();
         }
         return ch;
     }

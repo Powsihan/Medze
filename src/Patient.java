@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
+// patient section
 public class Patient implements Serializable{
     private String e_no,name,gender,blood,allergy;
     private Date date = null;

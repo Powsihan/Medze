@@ -6,10 +6,10 @@ import java.util.*;
 
 
 public class Drug implements Serializable{
-   private String d_id,name,c_name;
+    private String d_id,name,c_name;
     private Date mdate = null;
     private Date edate = null;
-   private int quantity;
+    private int quantity;
     SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
     public String getD_id() {
         return d_id;
@@ -67,8 +67,12 @@ public class Drug implements Serializable{
         int ch = 0,n=-1;
 
         do {
-            System.out.println("1.inset\t2.view\t3.search\t4.upadte\t5.delete\t0.exit");
-            System.out.print("enter your choise:");
+            System.out.println("\n<========================================================================================================>");
+            System.out.println("\t\t\t\t\t\t\t\t\t\t Welcome to Drugs Section");
+            System.out.println("<========================================================================================================>");
+            System.out.println("\t\t\t1.Insert\t\t2.View\t\t3.Search\t\t4.Update\t\t5.Delete\t\t0.Exit");
+            System.out.println("<-------------------------------------------------------------------------------------------------------->");
+            System.out.print("Enter your Choice : ");
             ch = scn.nextInt();
             switch (ch){
                 case 1:
@@ -87,49 +91,64 @@ public class Drug implements Serializable{
                     Drug.delete();
                     break;
                 case 0:
-                    System.out.println("thank you");
+                    System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                    System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t  Thank You...");
+                    System.out.println("<-------------------------------------------------------------------------------------------------------->");
                     break;
                 default:
-                    System.out.println("invalid input");
+                    System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                    System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Invalid Input...");
+                    System.out.println("<-------------------------------------------------------------------------------------------------------->");
                     break;
             }
         }while (ch != 0);
     }
-    
+
     private static void delete() throws IOException,ClassNotFoundException{
         File file = new File("drug.txt");
         ObjectInputStream ois = null;
         ObjectOutputStream oos =  null;
         PradiArray<Drug> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
-        System.out.println("================================================DELETE=======================================================");
+        System.out.println("\n<========================================================================================================>");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Delete Section");
+        System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
             sal = (PradiArray<Drug>) ois.readObject();
             ois.close();
             boolean found = false;
-            System.out.print("enter the Drug ID to delete:");
+            System.out.print("Enter the Drug ID to Delete:");
             String search = scn.nextLine();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             for (Drug st : sal) {
                 if (search.equals(st.d_id)) {
-                    System.out.println(st+"deleted!");
+                    System.out.println("\n<========================================================================================================>");
+                    System.out.println("Drug Details :\t"+st.getD_id() + " " + st.getName()+ " " + st.getC_name() + " " + MedzeUtil.dateViwe(st.getMdate()) + " " + MedzeUtil.dateViwe(st.getEdate())+ " " + st.getQuantity());
+                    System.out.println("<========================================================================================================>");
+                    System.out.println(st.d_id);
                     sal.remove(st);
                     found = true;
                 }
             }
             if (!found) {
-                System.out.println("Drug not found");
+                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("\t\t\t\t\t\t\t\t\t\t  Drug not Found...");
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
             }else {
-                System.out.println("success!");
+                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("\t\t\t\t\t\t\t\t\t  Successfully Deleted...");
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
                 oos = new ObjectOutputStream(new FileOutputStream(file));
                 oos.writeObject(sal);
                 oos.close();
             }
         }else {
-            System.out.println("file is not exist!");
+            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+            System.out.println("\t\t\t\t\t\t\t\t\t\t  File is not Exist...");
+            System.out.println("<-------------------------------------------------------------------------------------------------------->");
         }
-        System.out.println("==============================================================================================================");
+        System.out.println("\n<========================================================================================================>");
     }
 
     private static void update() throws IOException, ClassNotFoundException, ParseException {
@@ -139,49 +158,56 @@ public class Drug implements Serializable{
         PradiArray<Drug> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
-        System.out.println("================================================UPDATE=======================================================");
+        System.out.println("\n<========================================================================================================>");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Update Section");
+        System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
             sal = (PradiArray<Drug>) ois.readObject();
             Drug old = new Drug();
             ois.close();
             boolean found = false;
-            System.out.print("enter theDrug ID to update:");
+            System.out.print("Enter the Drug ID to Update : ");
             String search = scn.nextLine();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             for (Drug st : sal) {
                 if (search.equals(st.d_id)) {
-                    System.out.println(st+"deleted!");
-                    System.out.println("--------------------------------------------------------------------------------------------------------------------");
+                    System.out.println("\n<========================================================================================================>");
+                    System.out.println("Drug Details :\t"+st.getD_id() + " " + st.getName()+ " " + st.getC_name() + " " + MedzeUtil.dateViwe(st.getMdate()) + " " + MedzeUtil.dateViwe(st.getEdate())+ " " + st.getQuantity());
+                    System.out.println("<========================================================================================================>");
                     found = true;
                     old = st;
                 }
             }
             if (!found) {
-                System.out.println("Drug not found");
+                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("\t\t\t\t\t\t\t\t\t\t  Drug not found...");
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
             } else {
                 Drug drug = new Drug();
                 drug.setD_id(old.getD_id());
-                System.out.print("name:");
+                System.out.print("=>\t"+"Drug Name : ");
+                drug.setName(scn.nextLine().toUpperCase());
+                System.out.print("=>\t"+"Company Name : ");
                 drug.setC_name(scn.nextLine().toUpperCase());
-                System.out.print("company name:");
-                drug.setC_name(scn.nextLine().toUpperCase());
-                drug.setMdate(MedzeUtil.dateinsert("manufactuerd date:"));
-                drug.setEdate(MedzeUtil.dateinsert("expired date:"));
-                System.out.print("Quantity:");
+                drug.setMdate(MedzeUtil.dateinsert("=>\t"+"Manufacture Date (DD/MM/YYYY) : "));
+                drug.setEdate(MedzeUtil.dateinsert("=>\t"+"Expired Date (DD/MM/YYYY) : "));
+                System.out.print("=>\t"+"Quantity : ");
                 drug.setQuantity(scnum.nextInt());
                 sal.update(old,drug);
-                System.out.println("====================================================================================================================");
-                System.out.println(drug);
-                System.out.println("====================================================================================================================");
+                System.out.println("\n<========================================================================================================>");
+                System.out.println("Drug Details :\t"+drug.getD_id() + " " + drug.getName()+ " " + drug.getC_name() + " " + MedzeUtil.dateViwe(drug.getMdate()) + " " + MedzeUtil.dateViwe(drug.getEdate())+ " " + drug.getQuantity());
+                System.out.println("<========================================================================================================>");
 
-                System.out.println("success!");
+                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("\t\t\t\t\t\t\t\t\t\t  Successfully Updated...");
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
                 oos = new ObjectOutputStream(new FileOutputStream(file));
                 oos.writeObject(sal);
                 oos.close();
             }
         }
-        System.out.println("=============================================================================================================");
+        System.out.println("\n<========================================================================================================>");
     }
 
     private static void search() throws IOException, ClassNotFoundException {
@@ -189,52 +215,66 @@ public class Drug implements Serializable{
         ObjectInputStream ois = null;
         PradiArray<Drug> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
-        System.out.println("================================================SEARCH=======================================================");
+        System.out.println("\n<========================================================================================================>");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Search Section");
+        System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
             sal = (PradiArray<Drug>) ois.readObject();
             ois.close();
             boolean found = false;
-            System.out.print("enter Drug ID number to search:");
+            System.out.print("Enter the Drug ID number to Search:");
             String search = scn.nextLine();
             for (Drug st : sal) {
                 if (search.equals(st.d_id)) {
-                    System.out.println(st);
-                    System.out.println("--------------------------------------------------------------------------------------------------------------------");
+                    System.out.println("\n<========================================================================================================>");
+                    System.out.println("Drug Details :\t"+st.getD_id() + " " + st.getName()+ " " + st.getC_name() + " " + MedzeUtil.dateViwe(st.getMdate()) + " " + MedzeUtil.dateViwe(st.getEdate())+ " " + st.getQuantity());
+                    System.out.println("<========================================================================================================>");
                     found = true;
                 }
             }
             if (!found) {
-                System.out.println("Drug not found");
+                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("\t\t\t\t\t\t\t\t\t\t  Drug not Found...");
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
             }
         }else {
-            System.out.println("file is not exist!");
+            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+            System.out.println("\t\t\t\t\t\t\t\t\t\t  File is not Exist...");
+            System.out.println("<-------------------------------------------------------------------------------------------------------->");
         }
-        System.out.println("=============================================================================================================");
+        System.out.println("\n<========================================================================================================>");
     }
 
     private static void Druglist() throws IOException, ClassNotFoundException {
         File file = new File("Drug.txt");
         ObjectInputStream ois = null;
         PradiArray<Drug> sal =  new PradiArray<>();
-        System.out.println("================================================LIST=======================================================");
+        System.out.println("\n<========================================================================================================>");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data View Section");
+        System.out.println("<-------------------------------------------------------------------------------------------------------->\n");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
             sal = (PradiArray<Drug>) ois.readObject();
             ois.close();
+            System.out.println("Id\t\tName\t\tC_Name\t\tM_Date\t\t\tE_Date\t\t\tQuantity");
+            System.out.println("<------------------------------------------------------------------------------------------------->\n");
             for (Drug st : sal) {
-                System.out.println(st);
-                System.out.println("--------------------------------------------------------------------------------------------------------------------");
+                System.out.println(st.getD_id() + "\t" + st.getName() + "\t\t"  + st.getC_name() + "\t\t"+ MedzeUtil.dateViwe(st.getMdate()) + "\t\t" +MedzeUtil.dateViwe(st.getEdate()) + "\t\t" + st.getQuantity());
+                System.out.println("<-------------------------------------------------------------------------------------------->");
             }
         }else {
-            System.out.println("file is not exist!");
+            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+            System.out.println("\t\t\t\t\t\t\t\t\t\t  File is not Exist...");
+            System.out.println("<-------------------------------------------------------------------------------------------------------->");
         }
-        System.out.println("===============================================================================================================");
+        System.out.println("\n<========================================================================================================>");
     }
 
     public static void insert() throws IOException, ParseException, ClassNotFoundException {
-        System.out.println("================================================INSERT=======================================================");
-        System.out.println("welcome to data insert section");
+        System.out.println("\n<========================================================================================================>");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Insert Section");
+        System.out.println("<-------------------------------------------------------------------------------------------------------->");
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
         ObjectOutputStream oos = null;
@@ -248,28 +288,30 @@ public class Drug implements Serializable{
         int ch =-1;
         while (ch != 0){
             Drug drug = new Drug();
-            System.out.print("Drug ID:");
+            System.out.print("=>\tDrug (DXXX)"+" : ");
             drug.setD_id(scn.nextLine().toUpperCase());
-            System.out.print("name:");
+            System.out.print("=>\t"+"Drug Name : ");
+            drug.setName(scn.nextLine().toUpperCase());
+            System.out.print("=>\t"+"Company Name : ");
             drug.setC_name(scn.nextLine().toUpperCase());
-            System.out.print("company name:");
-            drug.setC_name(scn.nextLine().toUpperCase());
-            drug.setMdate(MedzeUtil.dateinsert("manufactuerd date:"));
-            drug.setEdate(MedzeUtil.dateinsert("expired date:"));
-            System.out.print("Quantity:");
+            drug.setMdate(MedzeUtil.dateinsert("=>\t"+"Manufacture Date (DD/MM/YYYY) : "));
+            drug.setEdate(MedzeUtil.dateinsert("=>\t"+"Expired Date (DD/MM/YYYY) : "));
+            System.out.print("=>\t"+"Quantity : ");
             drug.setQuantity(scnum.nextInt());
             sal.add(drug);
-            System.out.println("====================================================================================================================");
-            System.out.println(drug);
-            System.out.println("====================================================================================================================");
+            System.out.println("\n<========================================================================================================>");
+            System.out.println("Drug Details :\t"+drug.getD_id() + " " + drug.getName()+ " " + drug.getC_name() + " " + MedzeUtil.dateViwe(drug.getMdate()) + " " + MedzeUtil.dateViwe(drug.getEdate())+ " " + drug.getQuantity());
+            System.out.println("<========================================================================================================>");
 
             ch = MedzeUtil.iteration();
         }
         oos = new ObjectOutputStream(new FileOutputStream(file));
         oos.writeObject(sal);
         oos.close();
-        System.out.println("success!");
-        System.out.println("=============================================================================================================");
+        System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+        System.out.println("\t\t\t\t\t\t\t\t\t\t  Successfully Added...");
+        System.out.println("<-------------------------------------------------------------------------------------------------------->");
+        System.out.println("\n<========================================================================================================>");
     }
 
 }

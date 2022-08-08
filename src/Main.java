@@ -85,7 +85,7 @@ public class Main {
             System.out.println("\n<========================================================================================================>");
             System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Administration Section");
             System.out.println("<========================================================================================================>");
-            System.out.println("\t\t\t\t\t\t\t1.Student\t\t2.Staff\t\t3.drugs\t\t0.Exit");
+            System.out.println("\t\t\t\t\t\t\t1.Student\t\t2.Staff\t\t3.Drugs\t\t0.Exit");
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
             System.out.print("=>Enter your choice:");
             ch = scn.nextInt();
@@ -97,9 +97,6 @@ public class Main {
                     Admin.main("Staff", "Staff ID");
                     break;
                 case 3:
-                    System.out.println("\n<========================================================================================================>");
-                    System.out.println("\t\t\t\t\t\t\t\t\t\t Welcome to Drugs Section");
-                    System.out.println("<========================================================================================================>");
                     Drug.main();
                     break;
                 case 0:

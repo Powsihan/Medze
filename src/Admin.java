@@ -16,7 +16,7 @@ public class Admin implements Serializable{
             System.out.println("<========================================================================================================>");
             System.out.println("\t\t\t1.Insert\t\t2.View\t\t3.Search\t\t4.Update\t\t5.Delete\t\t0.Exit");
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
-            System.out.print("enter your choice:");
+            System.out.print("Enter your Choice : ");
             ch = scn.nextInt();
             switch (ch){
                 case 1:
@@ -91,7 +91,7 @@ public class Admin implements Serializable{
             System.out.println("\t\t\t\t\t\t\t\t\t\t  File is not Exist...");
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
         }
-        System.out.println("<========================================================================================================>");
+        System.out.println("\n<========================================================================================================>");
     }
 
     private static void update(String patient, String id) throws IOException, ClassNotFoundException, ParseException {
@@ -152,8 +152,8 @@ public class Admin implements Serializable{
             System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
             System.out.println("\t\t\t\t\t\t\t\t\t\t  File is not Exist...");
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
-    }
-        System.out.println("<========================================================================================================>");
+        }
+        System.out.println("\n<========================================================================================================>");
     }
 
     private static void search(String patient,String id) throws IOException, ClassNotFoundException {
@@ -171,14 +171,14 @@ public class Admin implements Serializable{
             boolean found = false;
             System.out.print("Enter "+id+" Number to Search : ");
             String search = scn.nextLine();
-                for (Patient st : sal) {
-                    if (search.equalsIgnoreCase(st.getE_no())) {
-                        System.out.println("\n<========================================================================================================>");
-                        System.out.println("Patient Details :\t"+st.getE_no() + " " + st.getName() + " " + MedzeUtil.dateViwe(st.getDate()) + " " + st.getGender() + " " + st.getBlood() + " " + st.getContact() + " " + st.getAllergy());
-                        System.out.println("<========================================================================================================>");
-                        found = true;
-                    }
-                 }
+            for (Patient st : sal) {
+                if (search.equalsIgnoreCase(st.getE_no())) {
+                    System.out.println("\n<========================================================================================================>");
+                    System.out.println("Patient Details :\t"+st.getE_no() + " " + st.getName() + " " + MedzeUtil.dateViwe(st.getDate()) + " " + st.getGender() + " " + st.getBlood() + " " + st.getContact() + " " + st.getAllergy());
+                    System.out.println("<========================================================================================================>");
+                    found = true;
+                }
+            }
             if (!found) {
                 System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
                 System.out.println("\t\t\t\t\t\t\t\t\t\t  "+patient+" not found...");
@@ -189,7 +189,7 @@ public class Admin implements Serializable{
             System.out.println("\t\t\t\t\t\t\t\t\t\t  File is not Exist...");
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
         }
-        System.out.println("<========================================================================================================>");
+        System.out.println("\n<========================================================================================================>");
     }
 
     private static void patientlist(String patient,String id) throws IOException, ClassNotFoundException {
@@ -240,7 +240,7 @@ public class Admin implements Serializable{
             System.out.print("=>\t"+"Name : ");
             patient1.setName(scn.nextLine().toUpperCase());
             patient1.setDate(MedzeUtil.dateinsert("=>\t"+"Date of Birth (DD/MM/YYYY) : "));
-            patient1.setGender(MedzeUtil.gender()); 
+            patient1.setGender(MedzeUtil.gender());
             patient1.setBlood(MedzeUtil.bloodinsert());
             System.out.print("=>\t"+"Contact Number (07XXXXXXXX): ");
             patient1.setContact(scnum.nextInt());
@@ -259,25 +259,5 @@ public class Admin implements Serializable{
         oos.writeObject(sal);
         oos.close();
 
-    }
-    private boolean consist (String patient,String id) throws IOException, ClassNotFoundException {
-        File file = new File(patient+".txt");
-        boolean found = false;
-        ObjectInputStream ois = null;
-        PradiArray<Patient> sal = new PradiArray<>();
-        Scanner scn = new Scanner(System.in);
-    if (file.isFile()) {
-            ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (PradiArray<Patient>) ois.readObject();
-            ois.close();
-            System.out.print("Enter "+id+" Number to Search : ");
-            String search = scn.nextLine();
-            for (Patient st : sal) {
-                if (search.equalsIgnoreCase(st.getE_no())) {
-                found = true;
-                }
-            }
-        }
-        return found;
     }
 }

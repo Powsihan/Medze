@@ -6,9 +6,8 @@ import java.util.*;
 
 // patient section
 public class Patient implements Serializable{
-    private String e_no,name,gender,blood,allergy;
+    private String e_no,name,gender,blood,contact,allergy;
     private Date date = null;
-   private int contact;
 
     public String getE_no() {
         return e_no;
@@ -59,12 +58,12 @@ public class Patient implements Serializable{
         this.date = sfd.parse(String.valueOf(dob1));
     }
 
-    public int getContact() {
+    public String getContact() {
 
         return contact;
     }
 
-    public void setContact(int contact) {
+    public void setContact(String contact) {
         this.contact = contact;
     }
 

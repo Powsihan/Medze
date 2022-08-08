@@ -47,6 +47,24 @@ public class Admin implements Serializable{
             }
         }while (ch != 0);
     }
+    public static boolean consist (String patient,String search) throws IOException, ClassNotFoundException {
+        File file = new File(patient+".txt");
+        boolean found = false;
+        ObjectInputStream ois = null;
+        PradiArray<Patient> sal = new PradiArray<>();
+        Scanner scn = new Scanner(System.in);
+        if (file.isFile()) {
+            ois = new ObjectInputStream(new FileInputStream(file));
+            sal = (PradiArray<Patient>) ois.readObject();
+            ois.close();
+            for (Patient st : sal) {
+                if (search.equalsIgnoreCase(st.getE_no())) {
+                    found = true;
+                }
+            }
+        }
+        return found;
+    }
     private static void delete(String patient,String id) throws IOException,ClassNotFoundException{
         File file = new File(patient+".txt");
         ObjectInputStream ois = null;
@@ -134,7 +152,7 @@ public class Admin implements Serializable{
                 patient1.setGender(MedzeUtil.gender());
                 patient1.setBlood(MedzeUtil.bloodinsert());
                 System.out.print("=>\t"+"Contact Number (07XXXXXXXX): ");
-                patient1.setContact(scnum.nextInt());
+                patient1.setContact(MedzeUtil.contact());
                 System.out.print("=>\t"+"Special Disease or Allergy : ");
                 patient1.setAllergy(scn.nextLine());
                 sal.update(oldPat,patient1);
@@ -218,7 +236,7 @@ public class Admin implements Serializable{
         System.out.println("\n<========================================================================================================>");
     }
 
-    public static void insert(String patient,String id) throws IOException, ParseException, ClassNotFoundException {
+    private static void insert(String patient,String id) throws IOException, ParseException, ClassNotFoundException {
         System.out.println("\n<========================================================================================================>");
         System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Insert Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
@@ -236,23 +254,32 @@ public class Admin implements Serializable{
         while (ch != 0){
             Patient patient1 = new Patient();
             System.out.print("=>\t"+id+" (CSTXXXXX)"+" : ");
-            patient1.setE_no(scn.nextLine().toUpperCase());
-            System.out.print("=>\t"+"Name : ");
-            patient1.setName(scn.nextLine().toUpperCase());
-            patient1.setDate(MedzeUtil.dateinsert("=>\t"+"Date of Birth (DD/MM/YYYY) : "));
-            patient1.setGender(MedzeUtil.gender());
-            patient1.setBlood(MedzeUtil.bloodinsert());
-            System.out.print("=>\t"+"Contact Number (07XXXXXXXX): ");
-            patient1.setContact(scnum.nextInt());
-            System.out.print("=>\t"+"Special Disease or Allergy : ");
-            patient1.setAllergy(scn.nextLine());
-            sal.add(patient1);
-            System.out.println("\n<========================================================================================================>");
-            System.out.println("Patient Details :\t"+patient1);
-            System.out.println("<========================================================================================================>");
-            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
-            System.out.println("\t\t\t\t\t\t\t\t\t\t  Successfully Added...");
-            System.out.println("<-------------------------------------------------------------------------------------------------------->");
+            String no = scn.nextLine();
+            if (consist(patient,no))
+            {
+                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("\t\t\t\t\t\t\t\t\t\t "+id+" Already Added...");
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
+            }else {
+                patient1.setE_no(no.toUpperCase());
+                System.out.print("=>\t"+"Name : ");
+                patient1.setName(scn.nextLine().toUpperCase());
+                patient1.setDate(MedzeUtil.dateinsert("=>\t"+"Date of Birth (DD/MM/YYYY) : "));
+                patient1.setGender(MedzeUtil.gender());
+                patient1.setBlood(MedzeUtil.bloodinsert());
+
+                patient1.setContact(MedzeUtil.contact());
+                System.out.print("=>\t"+"Special Disease or Allergy : ");
+                patient1.setAllergy(scn.nextLine());
+                sal.add(patient1);
+                System.out.println("\n<========================================================================================================>");
+                System.out.println("Patient Details :\t"+patient1);
+                System.out.println("<========================================================================================================>");
+                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("\t\t\t\t\t\t\t\t\t\t  Successfully Added...");
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
+            }
+
             ch = MedzeUtil.iteration();
         }
         oos = new ObjectOutputStream(new FileOutputStream(file));
@@ -260,24 +287,5 @@ public class Admin implements Serializable{
         oos.close();
 
     }
-    private boolean consist (String patient,String id) throws IOException, ClassNotFoundException {
-        File file = new File(patient+".txt");
-        boolean found = false;
-        ObjectInputStream ois = null;
-        PradiArray<Patient> sal = new PradiArray<>();
-        Scanner scn = new Scanner(System.in);
-        if (file.isFile()) {
-            ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (PradiArray<Patient>) ois.readObject();
-            ois.close();
-            System.out.print("Enter "+id+" Number to Search : ");
-            String search = scn.nextLine();
-            for (Patient st : sal) {
-                if (search.equalsIgnoreCase(st.getE_no())) {
-                    found = true;
-                }
-            }
-        }
-        return found;
-    }
+
 }

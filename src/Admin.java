@@ -260,4 +260,24 @@ public class Admin implements Serializable{
         oos.close();
 
     }
+    private boolean consist (String patient,String id) throws IOException, ClassNotFoundException {
+        File file = new File(patient+".txt");
+        boolean found = false;
+        ObjectInputStream ois = null;
+        PradiArray<Patient> sal = new PradiArray<>();
+        Scanner scn = new Scanner(System.in);
+        if (file.isFile()) {
+            ois = new ObjectInputStream(new FileInputStream(file));
+            sal = (PradiArray<Patient>) ois.readObject();
+            ois.close();
+            System.out.print("Enter "+id+" Number to Search : ");
+            String search = scn.nextLine();
+            for (Patient st : sal) {
+                if (search.equalsIgnoreCase(st.getE_no())) {
+                    found = true;
+                }
+            }
+        }
+        return found;
+    }
 }

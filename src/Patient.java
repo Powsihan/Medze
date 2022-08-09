@@ -69,7 +69,11 @@ public class Patient implements Serializable{
 
     @Override
     public String toString() {
-        return e_no+" | "+name+" | "+ MedzeUtil.dateViwe(date)+" | "+gender+" | "+blood+" | "+contact+" | "+allergy;
+        try {
+            return e_no+" | "+name+" | "+ MedzeUtil.age(date)+" | "+gender+" | "+blood+" | "+contact+" | "+allergy;
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

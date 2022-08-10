@@ -9,6 +9,7 @@ public class CaseDetail implements Serializable {
     private Date currentDate;
     private String data;
 
+
     public Date getCurrentDate() {
         return currentDate;
     }

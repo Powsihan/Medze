@@ -246,7 +246,7 @@ public class Drug implements Serializable{
         System.out.println("\n<========================================================================================================>");
     }
 
-    private static void Druglist() throws IOException, ClassNotFoundException {
+    public static void Druglist() throws IOException, ClassNotFoundException {
         File file = new File("Drug.txt");
         ObjectInputStream ois = null;
         PradiArray<Drug> sal =  new PradiArray<>();
@@ -312,6 +312,25 @@ public class Drug implements Serializable{
         System.out.println("\t\t\t\t\t\t\t\t\t\t  Successfully Added...");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         System.out.println("\n<========================================================================================================>");
+    }
+    public static boolean consist (String patient,String search) throws IOException, ClassNotFoundException {
+        File file = new File(patient+".txt");
+        boolean found = false;
+        ObjectInputStream ois = null;
+        PradiArray<Patient> sal = new PradiArray<>();
+        Scanner scn = new Scanner(System.in);
+        if (file.isFile()) {
+            ois = new ObjectInputStream(new FileInputStream(file));
+            sal = (PradiArray<Patient>) ois.readObject();
+            ois.close();
+            for (Patient st : sal) {
+                if (search.equalsIgnoreCase(st.getE_no())) {
+                    System.out.println(st);
+                    found = true;
+                }
+            }
+        }
+        return found;
     }
 
 }

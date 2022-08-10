@@ -65,6 +65,7 @@ public class Doctor implements Serializable{
             if (Admin.consist(patient,idnum)){
 
                report(idnum);
+               Drug.Druglist();
             }else {
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
                 System.out.println("\t\t\t\t\t\t\t\t\t patient not found!");
@@ -175,7 +176,8 @@ public class Doctor implements Serializable{
         oos.writeObject(sal);
         oos.close();
         }
+public static void drugC(){
 
-
+}
 
     }

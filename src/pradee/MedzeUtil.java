@@ -132,26 +132,5 @@ public class MedzeUtil {
         return ch;
     }
 
-    public static boolean Psw(String password) {
-        boolean grant = false;
-        Scanner scn = new Scanner(System.in);
 
-
-        System.out.println("\n<========================================================================================================>");
-
-//        System.out.print("\n\n\t\tEnter the Username: ");
-//        String username;
-//        username = scn.nextLine();
-//        System.out.println("###################################################################\n\n");
-
-        System.out.print("\t\tEnter the password: ");
-        String user;
-        user = scn.nextLine();
-        System.out.println("###################################################################\n\n");
-
-        if (username.equals(password) && user.equals("*****")) {
-        grant=true;
-        }
-        return grant;
-    }
 }

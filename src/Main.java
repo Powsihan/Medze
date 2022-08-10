@@ -4,23 +4,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, InterruptedException, IOException, ParseException {
-        Scanner scn = new Scanner(System.in);
+        Scanner scn= new Scanner(System.in);
         animation();
 
-        System.out.println("\n<========================================================================================================>");
-
-        System.out.print("\n\n\t\tEnter the Username: ");
-        String username;
-        username = scn.nextLine();
-        System.out.println("###################################################################\n\n");
-
-        System.out.print("\t\tEnter the password: ");
-        String password;
-        password = scn.nextLine();
-        System.out.println("###################################################################\n\n");
-
-        if (username.equals("Med12345") && password.equals("*****")) {
-            int ch =-1;
+       int ch=-1;
 
 
             do {
@@ -62,7 +49,7 @@ public class Main {
             } while (ch != 0);
 
         }
-        }
+
         //Lording loop Section....
         public static void loarding () throws InterruptedException {
             for (int i = 0; i < 24; i++) {

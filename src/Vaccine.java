@@ -1,16 +1,27 @@
+import pradee.PradiArray;
+
 import java.io.*;
+import java.text.ParseException;
 import java.util.*;
 
 public class Vaccine implements Serializable{
+    private String E_No;
 
+    public String getE_No() {
+        return E_No;
+    }
+
+    public void setE_No(String e_No) {
+        E_No = e_No;
+    }
 
     // Main Section for Vaccination Part
-    public static void main() {
+    public static void main() throws IOException, ParseException, ClassNotFoundException {
 
         VaccinePassword();  // Calling VaccinePassword section
     }
 
-    public static void Vaccination()  {
+    public static void Vaccination() throws IOException, ParseException, ClassNotFoundException {
         System.out.println("<================================================Welcome================================================>");
         System.out.println(".........................................................................................................");
         System.out.println(".........................................................................................................");
@@ -70,9 +81,8 @@ public class Vaccine implements Serializable{
         }while(ch!=0);
 
     }
-
     // VaccinePassword Section
-    public static void VaccinePassword() {
+    public static void VaccinePassword()throws IOException, ParseException, ClassNotFoundException  {
         Scanner pass= new Scanner(System.in);
         int passV;
         do{
@@ -134,67 +144,63 @@ public class Vaccine implements Serializable{
 
 
     // Student Vaccination Section
-    public static void Patient(String patient,String ID)  {
-        try{
-            Scanner Patients=new Scanner(System.in);
-            System.out.print("Enter the "+patient+" "+ID+" :");
-            String n1=Patients.next();
-            System.out.println("\n<=======================================VACCINE LIST===============================================>\n");
-            VaccineList();
-            System.out.println("\n<==================================================================================================>\n");
-            System.out.print("Enter the Vaccine Code:");
-            String n2=Patients.next();
-            File VaccineName=new File(n2+".txt");
+    public static void Patient(String patient,String ID)throws IOException, ParseException, ClassNotFoundException {
+        // try{
+        Scanner scn=new Scanner(System.in);
+        Scanner scnum=new Scanner(System.in);
 
-            if(VaccineName.isFile()){
-
-                BufferedReader ois;
-                ois=new BufferedReader(new FileReader(VaccineName));
-                String li=ois.readLine();
-                //  Scanner Vc=new Scanner(VaccineName);
-
-                boolean found=false;
-                //  while (Vc.hasNextLine()) {
-                if (n1.equals(li)) {
-                    found = true;
-
-
-                } else {
-                    System.out.println("<===========================================================================>\n");
-                    System.out.println("Press 1 for your Conformation");
-                    System.out.println("\t1.Confirm\t\t0.Exit");
-                    System.out.print("Enter Your choice : ");
-                    int a=Patients.nextInt();
-                    System.out.println("\n<===========================================================================>");
-                    if (a == 1) {
-                        li = n1;
-                        FileWriter oos;
-                        oos = new FileWriter(VaccineName, true);
-                        BufferedWriter ops = new BufferedWriter(oos);
-                        ops.write(li);
-                        ops.newLine();
-                        ops.flush();
-                        ops.close();
-                        System.out.println("Successfully Vaccinated....");
-                        //Vc.nextLine();
-
-
-                    }
-
-                }
-                // }
-                if(found){
-                    System.out.println("Already Vaccinated....");
-                    // Vc.nextLine();
-
-                }
-
-            }else{
-                System.out.println("file is not exist!");
-            }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+        System.out.print("Enter the "+patient+" "+ID+" :");
+        String n1=scn.next();
+        System.out.println("\n<=======================================VACCINE LIST===============================================>\n");
+        VaccineList();
+        System.out.println("\n<==================================================================================================>\n");
+        System.out.print("Enter the Vaccine Code:");
+        String n2 = scn.next();
+        File VaccineName = new File(n2 + ".txt");
+        ObjectOutputStream oos=null ;
+        ObjectInputStream ois=null;
+        PradiArray<Vaccine> sal = new PradiArray<>();
+        if (VaccineName.isFile()) {
+            ois = new ObjectInputStream(new FileInputStream(VaccineName));
+            sal = (PradiArray<Vaccine>) ois.readObject();
+            ois.close();
         }
+        boolean found = false;
+
+        for (Vaccine st : sal) {
+            if (n1.equalsIgnoreCase(st.getE_No())) {
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("<===========================================================================>\n");
+            System.out.println("Press 1 for your Conformation");
+            System.out.println("\t1.Confirm\t\t0.Exit");
+            System.out.print("Enter Your choice : ");
+            int a = scnum.nextInt();
+            System.out.println("\n<===========================================================================>");
+            if (a == 1) {
+                Vaccine nn=new Vaccine();
+                nn.setE_No(n1);
+                sal.add(nn);
+
+            }
+
+        }else{
+            System.out.println("Already Vaccinated....");
+
+        }
+        oos = new ObjectOutputStream(new FileOutputStream(VaccineName));
+        oos.writeObject(sal);
+        oos.close();
+        System.out.println("Successfully Vaccinated....");
+
+
+
+
+        //  }catch(Exception e){
+        //   System.out.println(e.getMessage());
+        // }
     }
 
     // VaccinationList Section

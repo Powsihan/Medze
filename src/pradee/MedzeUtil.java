@@ -102,7 +102,7 @@ public class MedzeUtil {
             System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
             System.out.println("\t\t\tInvalid Phone Number" + d + "\nCheck the number Eg:0771234567");
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
-            contact();
+            fine = contact();
         }
         return fine;
     }

@@ -81,7 +81,7 @@ public class Admin implements Serializable{
             ois.close();
             boolean found = false;
             System.out.print("Enter the "+id+" to Delete : ");
-            String search = scn.nextLine();
+            String search = Id.courseS(id);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             for (Patient st : sal) {
                 if (search.equalsIgnoreCase(st.getE_no())) {
@@ -130,7 +130,7 @@ public class Admin implements Serializable{
             ois.close();
             boolean found = false;
             System.out.print("Enter the "+id+" to Update:");
-            String search = scn.nextLine();
+            String search = Id.courseS(id);
             for (Patient st : sal) {
                 if (search.equalsIgnoreCase(st.getE_no())) {
                     System.out.println("\n<========================================================================================================>");
@@ -188,8 +188,8 @@ public class Admin implements Serializable{
             sal = (PradiArray<Patient>) ois.readObject();
             ois.close();
             boolean found = false;
-            System.out.print("Enter "+id+" Number to Search : ");
-            String search = scn.nextLine();
+//            System.out.print("Enter "+id+" Number to Search : ");
+            String search = Id.courseS(id);
             for (Patient st : sal) {
                 if (search.equalsIgnoreCase(st.getE_no())) {
                     System.out.println("\n<========================================================================================================>");
@@ -242,7 +242,6 @@ public class Admin implements Serializable{
         System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Insert Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         Scanner scn = new Scanner(System.in);
-        Scanner scnum = new Scanner(System.in);
         ObjectOutputStream oos = null;
         PradiArray<Patient> sal = new PradiArray<>();
         File file =new File(patient+".txt");
@@ -254,8 +253,8 @@ public class Admin implements Serializable{
         int ch =-1;
         while (ch != 0){
             Patient patient1 = new Patient();
-            System.out.print("=>\t"+id+" (CSTXXXXX)"+" : ");
-            String no = scn.nextLine();
+//            System.out.print("=>\t"+id+" (CSTXXXXX)"+" : ");
+            String no =Id.courseS(id);
             if (consist(patient,no))
             {
                 System.out.println("\n<-------------------------------------------------------------------------------------------------------->");

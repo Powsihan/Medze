@@ -1,8 +1,16 @@
 import pradee.MedzeUtil;
-import pradee.PradiArray;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import pradee.PradiArray;
+import java.time.LocalDate;
 import java.io.*;
+import java.time.*;
 import java.util.Scanner;
+
+import static java.time.LocalDate.*;
 
 
 public class Doctor implements Serializable{
@@ -56,7 +64,7 @@ public class Doctor implements Serializable{
             idnum = scn.next();
             if (Admin.consist(patient,idnum)){
 
-                FileWriter PatientName=new FileWriter(ID+".txt");
+               report(idnum);
             }else {
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
                 System.out.println("\t\t\t\t\t\t\t\t\t patient not found!");
@@ -126,4 +134,48 @@ public class Doctor implements Serializable{
         }
         System.out.println("\n<========================================================================================================>");
     }
-}
+    public static void report(String Id) throws IOException, ClassNotFoundException, ParseException {
+        System.out.println("\n<========================================================================================================>");
+        System.out.println("\t\t\t\t\t\t\t\t\t Patient Report Section");
+        System.out.println("<-------------------------------------------------------------------------------------------------------->");
+        Scanner scn = new Scanner(System.in);
+        Scanner scnum = new Scanner(System.in);
+        ObjectOutputStream oos = null;
+        PradiArray<CaseDetail> sal = new PradiArray<>();
+        File file =new File(Id+".txt");
+        if(file.isFile()){
+            ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(file));
+            sal = (PradiArray<CaseDetail>) ois.readObject();
+            ois.close();
+           // System.out.println("Id\t\t\tName\t\tDate\t\t\tGender\t\tBloodGroup\t\tContactNot\t\tDisease");
+            System.out.println("<------------------------------------------------------------------------------------------------->\n");
+            for (CaseDetail st : sal) {
+                System.out.println(st);
+                System.out.println("<-------------------------------------------------------------------------------------------->");
+            }
+        }
+            System.out.println("<===========================================================================>\n");
+            System.out.println("Press 1 for your Conformation");
+            System.out.println("\t1.Confirm\t\t0.Exit");
+            System.out.print("Enter Your choice : ");
+            int a=scnum.nextInt();
+            System.out.println("\n<===========================================================================>");
+            if (a == 1) {
+                CaseDetail report01 = new CaseDetail();
+                report01.setCurrentDate(MedzeUtil.dateinsert("Date"));
+                System.out.println("Type report...");
+                report01.setData(scn.next());
+                sal.add(report01);
+                System.out.println("<========================================================================================================>");
+                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("\t\t\t\t\t\t\t\t\t\t  Successfully Added...");
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
+            }
+        oos = new ObjectOutputStream(new FileOutputStream(file));
+        oos.writeObject(sal);
+        oos.close();
+        }
+
+
+
+    }

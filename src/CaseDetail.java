@@ -9,13 +9,16 @@ public class CaseDetail implements Serializable {
     private Date currentDate;
     private String data;
 
+    SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    public String getCurrentDate() {
+      //  SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-    public Date getCurrentDate() {
-        return currentDate;
+        return sfd.format(currentDate);
     }
 
     public void setCurrentDate(String currentD) throws ParseException {
-        SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
+
+      //  SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         this.currentDate = sfd.parse(String.valueOf(currentD));
 
     }
@@ -31,7 +34,7 @@ public class CaseDetail implements Serializable {
 
     @Override
     public String toString() {
-        return MedzeUtil.dateViwe(currentDate) + "\n" + data;
+        return sfd.format(currentDate) + "\n" + data;
 
     }
 }

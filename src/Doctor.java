@@ -1,7 +1,8 @@
 import pradee.MedzeUtil;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import pradee.PradiArray;
@@ -156,6 +157,7 @@ public class Doctor implements Serializable{
             }
         }
             System.out.println("<===========================================================================>\n");
+
             System.out.println("Press 1 for your Conformation");
             System.out.println("\t1.Confirm\t\t0.Exit");
             System.out.print("Enter Your choice : ");
@@ -163,21 +165,29 @@ public class Doctor implements Serializable{
             System.out.println("\n<===========================================================================>");
             if (a == 1) {
                 CaseDetail report01 = new CaseDetail();
-                report01.setCurrentDate(MedzeUtil.dateinsert("Date"));
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date dateV=new Date();
+                report01.setCurrentDate(formatter.format(dateV));
                 System.out.println("Type report...");
-                report01.setData(scn.next());
+                report01.setData(scn.nextLine());
                 sal.add(report01);
-                System.out.println("<========================================================================================================>");
                 System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
                 System.out.println("\t\t\t\t\t\t\t\t\t\t  Successfully Added...");
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("<========================================================================================================>");
+                System.out.println("Press 1 to show the Drug Details");
+                System.out.print("Enter Your choice : ");
+                int b = scnum.nextInt();
+                System.out.println("\n<===========================================================================>");
+                if (b == 1) {
+                    Drug.Druglist();
+                }
+
             }
         oos = new ObjectOutputStream(new FileOutputStream(file));
         oos.writeObject(sal);
         oos.close();
         }
-public static void drugC(){
 
-}
 
     }

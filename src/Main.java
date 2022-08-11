@@ -14,24 +14,18 @@ public class Main {
                 System.out.println("\n<========================================================================================================>");
                 System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t Main Section");
                 System.out.println("<========================================================================================================>");
-                System.out.println("\t\t\t\t\t1.Administration\t\t2.Doctor\t\t3.Vaccination\t\t0.Exit");
+                System.out.println("\t\t\t\t\t1.Administration\t\t2.Doctor\t\t3.Vaccination Camp\t\t0.Exit");
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
-                System.out.print("=>Enter your choice:");
+                System.out.print("=>Enter your choice : ");
                 ch = scn.nextInt();
                 switch (ch) {
                     case 1:
                         AdminPassword();
                         break;
                     case 2:
-                        System.out.println("\n<========================================================================================================>");
-                        System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t Welcome to Doctor Section");
-                        System.out.println("<========================================================================================================>");
                         Doctor.main();
                         break;
                     case 3:
-                        System.out.println("\n<========================================================================================================>");
-                        System.out.println("\t\t\t\t\t\t\t\t\t\t Welcome to Vaccination Section");
-                        System.out.println("<========================================================================================================>");
                         Vaccine.main();
                         break;
                     case 0:
@@ -89,7 +83,7 @@ public class Main {
                 System.out.println("<========================================================================================================>");
                 System.out.println("\t\t\t\t\t\t\t1.Student\t\t2.Staff\t\t3.Drugs\t\t0.Exit");
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
-                System.out.print("=>Enter your choice:");
+                System.out.print("=>\tEnter your choice : ");
                 ch = scn.nextInt();
                 switch (ch) {
                     case 1:
@@ -121,7 +115,7 @@ public class Main {
             int passV;
             do {
                 System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
-                System.out.print("===> Enter the Administration Section Password : ");
+                System.out.print("=>\tEnter the Administration Section Password : ");
                 passV = pass.nextInt();
 
                 if (passV == 111) {

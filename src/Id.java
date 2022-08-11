@@ -5,8 +5,6 @@ public class Id {
     public static String courseS(String patient){
         String fine = null;
         Scanner scn = new Scanner(System.in);
-        System.out.print("=>\t" + patient + "number:");
-
         String input = scn.next();
         if (namecheck(input)) {
             if (input.matches("[A-z]{3}[2-9]{1}[0-9]{4}")) {
@@ -14,15 +12,17 @@ public class Id {
 
             } else {
                 System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
-                System.out.println("\t\t\tInvalid" + patient + input + "\nCheck the ID Eg:xxx");
+                System.out.println("Invalid " + patient +" "+input + "\nCheck the ID Eg : (CSTXXXXX)");
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
+                System.out.print("=>\t"+patient+" (CSTXXXXX)"+" : ");
                 fine=courseS(patient);
             }
         }
         else {
             System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
-            System.out.println("\t\t\tInvalid" + patient + input + "\nCheck the ID Eg:xxx");
+            System.out.println("Invalid " + patient +" "+input + "\nCheck the ID Eg : (CSTXXXXX)");
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
+            System.out.print("=>\t"+patient+" (CSTXXXXX)"+" : ");
             fine=courseS(patient);
         }
 

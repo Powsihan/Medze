@@ -1,17 +1,11 @@
 import pradee.MedzeUtil;
-
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
 import pradee.PradiArray;
-import java.time.LocalDate;
 import java.io.*;
-import java.time.*;
 import java.util.Scanner;
 
-import static java.time.LocalDate.*;
 
 
 public class Doctor implements Serializable{
@@ -22,18 +16,15 @@ public class Doctor implements Serializable{
     public static void Enquire()
     {
         Scanner DoctorI=new Scanner(System.in);
-
-        int ch;
-
+        int ch=0;
         do{
-            System.out.println("<==============================================================================================================>");
-            System.out.println("<================================================Doctor Section================================================>");
-            System.out.println("<==============================================================================================================>");
-            System.out.println("\t1.Student\t2.Staff\t\t0.Exit");
-            System.out.println("\n<========================================================================================>");
-            System.out.print("=>Enter your choice:");
+            System.out.println("\n<========================================================================================================>");
+            System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Doctor Section");
+            System.out.println("<========================================================================================================>");
+            System.out.println("\t\t\t\t\t\t\t1.Student\t\t\t2.Staff\t\t\t0.Exit");
+            System.out.println("<-------------------------------------------------------------------------------------------------------->");
+            System.out.print("=>Enter your choice : ");
             ch= DoctorI.nextInt();
-            System.out.println("<==============================================================================================================>");
             switch (ch){
                 case 1:
                     PatientV("Student","EnrollNo");
@@ -42,9 +33,15 @@ public class Doctor implements Serializable{
                 case 2:
                     PatientV("Staff","ID");
                     break;
-
-
+                case 0:
+                    System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                    System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t  Thank You...");
+                    System.out.println("<-------------------------------------------------------------------------------------------------------->");
+                    break;
                 default:
+                    System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                    System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Invalid Input...");
+                    System.out.println("<-------------------------------------------------------------------------------------------------------->");
                     break;
 
             }
@@ -53,27 +50,22 @@ public class Doctor implements Serializable{
 
     public static void PatientV(String patient,String ID){
         try{
-            Scanner Presc=new Scanner(System.in);
             Scanner scn=new Scanner(System.in);
             String idnum;
-
-            System.out.println("<=============================================Prescription Section=============================================>");
-            System.out.println("<==============================================================================================================>\n");
-        //  File PatientName=null;
-           // Patient.search(patient, ID);
-            System.out.print("enter"+ID+":");
+            System.out.println("\n<========================================================================================================>");
+            System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Case Details Section");
+            System.out.println("<-------------------------------------------------------------------------------------------------------->");
+            System.out.print("Enter the "+patient+" "+ID+" : ");
             idnum = scn.next();
             if (Admin.consist(patient,idnum)){
-
                report(idnum);
-               Drug.Druglist();
             }else {
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
-                System.out.println("\t\t\t\t\t\t\t\t\t patient not found!");
+                System.out.println("\t\t\t\t\t\t\t\t\t\t patient not found!");
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
 
             }
-            System.out.println("\n<===================================================================================>\n");
+            System.out.println("\n<========================================================================================================>");
 
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -86,59 +78,23 @@ public class Doctor implements Serializable{
         Scanner pass = new Scanner(System.in);
         int passV;
         do {
-            System.out.print("===> Enter the Doctor Unit Password : ");
+            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+            System.out.print("=>\tEnter the Doctor Section Password : ");
             passV = pass.nextInt();
 
             if (passV == 222) {
-                System.out.println("\n\n");
                 Enquire();
-                System.out.println("\n\n");
             } else {
-                System.out.println("Invalid Password.......Try Again.");
-                System.out.println("\n<======================================================================================>");
-
+                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                System.out.println("\t\t\t\t\t\t\t\t\t\t  Invalid Password Try Again...");
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
             }
         } while (passV != 222);
 
     }
-    private static void patientsearch(String patient,String id) throws IOException, ClassNotFoundException {
-        File file = new File(patient+".txt");
-        ObjectInputStream ois = null;
-        PradiArray<Patient> sal = new PradiArray<>();
-        Scanner scn = new Scanner(System.in);
-        System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Search Section");
-        System.out.println("<-------------------------------------------------------------------------------------------------------->");
-        if (file.isFile()) {
-            ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (PradiArray<Patient>) ois.readObject();
-            ois.close();
-            boolean found = false;
-            System.out.print("Enter "+id+" Number to Search : ");
-            String search = scn.nextLine();
-            for (Patient st : sal) {
-                if (search.equalsIgnoreCase(st.getE_no())) {
-                    System.out.println("\n<========================================================================================================>");
-                    System.out.println("Patient Details :\t"+st.getE_no() + " " + st.getName() + " " + MedzeUtil.dateViwe(st.getDate()) + " " + st.getGender() + " " + st.getBlood() + " " + st.getContact() + " " + st.getAllergy());
-                    System.out.println("<========================================================================================================>");
-                    found = true;
-                }
-            }
-            if (!found) {
-                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
-                System.out.println("\t\t\t\t\t\t\t\t\t\t  "+patient+" not found...");
-                System.out.println("<-------------------------------------------------------------------------------------------------------->");
-            }
-        }else {
-            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
-            System.out.println("\t\t\t\t\t\t\t\t\t\t  File is not Exist...");
-            System.out.println("<-------------------------------------------------------------------------------------------------------->");
-        }
-        System.out.println("\n<========================================================================================================>");
-    }
     public static void report(String Id) throws IOException, ClassNotFoundException, ParseException {
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Patient Report Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Report Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
@@ -149,26 +105,27 @@ public class Doctor implements Serializable{
             ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(file));
             sal = (PradiArray<CaseDetail>) ois.readObject();
             ois.close();
-           // System.out.println("Id\t\t\tName\t\tDate\t\t\tGender\t\tBloodGroup\t\tContactNot\t\tDisease");
-            System.out.println("<------------------------------------------------------------------------------------------------->\n");
             for (CaseDetail st : sal) {
                 System.out.println(st);
-                System.out.println("<-------------------------------------------------------------------------------------------->");
+                System.out.println("<========================================================================================>");
             }
         }
-            System.out.println("<===========================================================================>\n");
-
-            System.out.println("Press 1 for your Conformation");
-            System.out.println("\t1.Confirm\t\t0.Exit");
-            System.out.print("Enter Your choice : ");
+        System.out.println("\n<========================================================================================================>");
+        System.out.println("Press 1 for Type Prescription");
+        System.out.println("<------------------------------------------------------------------------------------------------->");
+        System.out.println("\t\t1.Confirm\t\t\t0.Exit");
+        System.out.println("<------------------------------------------------------------------------------------------------->");
+            System.out.print("=>\tEnter Your choice : ");
             int a=scnum.nextInt();
-            System.out.println("\n<===========================================================================>");
+            System.out.println("<------------------------------------------------------------------------------------------------->");
             if (a == 1) {
                 CaseDetail report01 = new CaseDetail();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 Date dateV=new Date();
                 report01.setCurrentDate(formatter.format(dateV));
-                System.out.println("Type report...");
+                System.out.println("\t\t\t\t\t\t\t\t\t\t\t Type report...");
+                System.out.println("<------------------------------------------------------------------------------------------------->\n");
+                System.out.print("Type Here : ");
                 report01.setData(scn.nextLine());
                 sal.add(report01);
                 System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
@@ -176,9 +133,11 @@ public class Doctor implements Serializable{
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
                 System.out.println("<========================================================================================================>");
                 System.out.println("Press 1 to show the Drug Details");
-                System.out.print("Enter Your choice : ");
+                System.out.println("\t\t1.Confirm\t\t\t0.Exit");
+                System.out.println("<------------------------------------------------------------------------------------------------->");
+                System.out.print("=>\tEnter Your choice : ");
                 int b = scnum.nextInt();
-                System.out.println("\n<===========================================================================>");
+                System.out.println("<-------------------------------------------------------------------------------------------------------->");
                 if (b == 1) {
                     Drug.Druglist();
                 }

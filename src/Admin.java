@@ -8,7 +8,7 @@ import pradee.*;
 public class Admin implements Serializable{
     public static void main(String patient,String id) throws IOException, ClassNotFoundException, ParseException {
         Scanner scn = new Scanner(System.in);
-        int ch = 0,n=-1;
+        int ch = 0;
 
         do {
             System.out.println("\n<========================================================================================================>");
@@ -16,7 +16,7 @@ public class Admin implements Serializable{
             System.out.println("<========================================================================================================>");
             System.out.println("\t\t\t1.Insert\t\t2.View\t\t3.Search\t\t4.Update\t\t5.Delete\t\t0.Exit");
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
-            System.out.print("Enter your Choice : ");
+            System.out.print("=>\tEnter your Choice : ");
             ch = scn.nextInt();
             switch (ch){
                 case 1:
@@ -59,7 +59,9 @@ public class Admin implements Serializable{
             ois.close();
             for (Patient st : sal) {
                 if (search.equalsIgnoreCase(st.getE_no())) {
-                    System.out.println(st);
+                    System.out.println("\n<========================================================================================================>");
+                    System.out.println(patient+" Details : "+st);
+                    System.out.println("<========================================================================================================>");
                     found = true;
                 }
             }
@@ -73,7 +75,7 @@ public class Admin implements Serializable{
         PradiArray<Patient> sal;
         Scanner scn = new Scanner(System.in);
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Delete Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to "+patient+" Delete Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
@@ -122,7 +124,7 @@ public class Admin implements Serializable{
         Scanner scnum = new Scanner(System.in);
         Patient oldPat = new Patient();
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Update Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to "+patient+" Update Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
@@ -181,14 +183,14 @@ public class Admin implements Serializable{
         PradiArray<Patient> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Search Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to "+patient+" Search Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
             sal = (PradiArray<Patient>) ois.readObject();
             ois.close();
             boolean found = false;
-//            System.out.print("Enter "+id+" Number to Search : ");
+           System.out.print("Enter "+id+" Number to Search : ");
             String search = Id.courseS(id);
             for (Patient st : sal) {
                 if (search.equalsIgnoreCase(st.getE_no())) {
@@ -216,7 +218,7 @@ public class Admin implements Serializable{
         ObjectInputStream ois = null;
         PradiArray<Patient> sal =  new PradiArray<>();
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data View Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to "+patient+" View Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->\n");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
@@ -239,7 +241,7 @@ public class Admin implements Serializable{
 
     private static void insert(String patient,String id) throws IOException, ParseException, ClassNotFoundException {
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Insert Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to "+patient+" Insert Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         Scanner scn = new Scanner(System.in);
         ObjectOutputStream oos = null;
@@ -253,7 +255,7 @@ public class Admin implements Serializable{
         int ch =-1;
         while (ch != 0){
             Patient patient1 = new Patient();
-//            System.out.print("=>\t"+id+" (CSTXXXXX)"+" : ");
+            System.out.print("=>\t"+id+" (CSTXXXXX)"+" : ");
             String no =Id.courseS(id);
             if (consist(patient,no))
             {

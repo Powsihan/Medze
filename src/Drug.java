@@ -111,7 +111,7 @@ public class Drug implements Serializable{
         PradiArray<Drug> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Delete Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Drug Delete Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
@@ -159,7 +159,7 @@ public class Drug implements Serializable{
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Update Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Drug Update Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
@@ -216,7 +216,7 @@ public class Drug implements Serializable{
         PradiArray<Drug> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Search Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Drug Search Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
@@ -251,7 +251,7 @@ public class Drug implements Serializable{
         ObjectInputStream ois = null;
         PradiArray<Drug> sal =  new PradiArray<>();
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data View Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Drug View Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->\n");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));

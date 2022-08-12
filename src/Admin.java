@@ -53,7 +53,7 @@ public class Admin implements Serializable{  //we implement Serialization functi
     }
     //This is use for check existence of patient
     public static boolean consist (String patient,String search) throws IOException, ClassNotFoundException {
-        File file = new File(patient+".txt");     //defines the patient datafile
+        File file = new File(patient+".UWU");     //defines the patient datafile
         boolean found = false;
         ObjectInputStream ois = null;      //To read the objects
         PradiArray<Patient> sal = new PradiArray<>();

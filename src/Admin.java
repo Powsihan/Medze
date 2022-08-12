@@ -1,11 +1,15 @@
-import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import pradee.*;
+import java.io.*;                  //we are dealing with files
+import java.text.ParseException;   //convert string to dateformat & Dateformat to string
+import java.text.SimpleDateFormat;//we define the format of the date as we want
+import java.util.*;//Scanner class etc....
+import pradee.*;//This our own package which is consists our own utilities,functions(MedzeUtil,PradiArray)
 
+//Administration part
+//we use the admin class for student & staff where accordingly student enrollment num & staff id will be displayed
+public class Admin implements Serializable{  //we implement Serialization function for manipulate object
+    //Administration main section
 
-public class Admin implements Serializable{
+    //The program will run based on patient preferring staff &
     public static void main(String patient,String id) throws IOException, ClassNotFoundException, ParseException {
         Scanner scn = new Scanner(System.in);
         int ch = 0;
@@ -47,10 +51,11 @@ public class Admin implements Serializable{
             }
         }while (ch != 0);
     }
+    //This is use for check existence of patient
     public static boolean consist (String patient,String search) throws IOException, ClassNotFoundException {
-        File file = new File(patient+".txt");
+        File file = new File(patient+".txt");     //defines the patient datafile
         boolean found = false;
-        ObjectInputStream ois = null;
+        ObjectInputStream ois = null;      //To read the objects
         PradiArray<Patient> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         if (file.isFile()) {

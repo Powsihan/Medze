@@ -1,22 +1,22 @@
-import java.io.*;                  //we are dealing with files
-import java.text.ParseException;   //convert string to dateformat & Dateformat to string
-import java.text.SimpleDateFormat;//we define the format of the date as we want
+import java.io.*;                  //Deal with inputs and outputs
+import java.text.ParseException;   //Pass string to dateformat & Dateformat to string
+import java.text.SimpleDateFormat;//Define the format of the date as per wish
 import java.util.*;//Scanner class etc....
-import pradee.*;//This our own package which is consists our own utilities,functions(MedzeUtil,PradiArray)
+import pradee.*;//This is an own package which consists of utilities,functions(MedzeUtil,PradiArray)
 
 //Administration part
 //we use the admin class for student & staff where accordingly student enrollment num & staff id will be displayed
-public class Admin implements Serializable{  //we implement Serialization function for manipulate object
+public class Admin implements Serializable{  //we implement Serialization interface to manipulate object
     //Administration main section
 
-    //The program will run based on patient preferring staff &
+    //The program will run based on patient referred to student & staff and ID referred to student enrollment number and staff ID.
     public static void main(String patient,String id) throws IOException, ClassNotFoundException, ParseException {
         Scanner scn = new Scanner(System.in);
         int ch = 0;
 
         do {
             System.out.println("\n<========================================================================================================>");
-            System.out.println("\t\t\t\t\t\t\t\t\t\t Welcome to "+patient+" Section");
+            System.out.println("\t\t\t\t\t\t\t\t\t\t Welcome to "+patient+" Section");//Start of Patient section
             System.out.println("<========================================================================================================>");
             System.out.println("\t\t\t1.Insert\t\t2.View\t\t3.Search\t\t4.Update\t\t5.Delete\t\t0.Exit");
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
@@ -48,7 +48,7 @@ public class Admin implements Serializable{  //we implement Serialization functi
                     System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Invalid Input...");
                     System.out.println("<-------------------------------------------------------------------------------------------------------->");
                     break;
-            }
+            } //According to the user input the relevant case will be running.
         }while (ch != 0);
     }
     //This is use for check existence of patient
@@ -56,11 +56,11 @@ public class Admin implements Serializable{  //we implement Serialization functi
         File file = new File(patient+".UWU");     //defines the patient datafile
         boolean found = false;
         ObjectInputStream ois = null;      //To read the objects
-        PradiArray<Patient> sal = new PradiArray<>();
+        PradiArray<Patient> sal = new PradiArray<>();//Alternative for Array List from pradeepackge to store the objects in an array
         Scanner scn = new Scanner(System.in);
         if (file.isFile()) {
-            ois = new ObjectInputStream(new FileInputStream(file));
-            sal = (PradiArray<Patient>) ois.readObject();
+            ois = new ObjectInputStream(new FileInputStream(file)); //Read the inputs from the file
+            sal = (PradiArray<Patient>) ois.readObject(); //Store the object to the array.
             ois.close();
             for (Patient st : sal) {
                 if (search.equalsIgnoreCase(st.getE_no())) {
@@ -68,13 +68,13 @@ public class Admin implements Serializable{  //we implement Serialization functi
                     System.out.println(patient+" Details : "+st);
                     System.out.println("<========================================================================================================>");
                     found = true;
-                }
+                } //Check the input throughout the file
             }
         }
         return found;
     }
     private static void delete(String patient,String id) throws IOException,ClassNotFoundException{
-        File file = new File(patient+".txt");
+        File file = new File(patient+".UWU");
         ObjectInputStream ois = null;
         ObjectOutputStream oos =  null;
         PradiArray<Patient> sal;
@@ -96,7 +96,7 @@ public class Admin implements Serializable{  //we implement Serialization functi
                     System.out.println("Patient Details :\t"+st.getE_no() + " " + st.getName() + " " + MedzeUtil.dateViwe(st.getDate()) + " " + st.getGender() + " " + st.getBlood() + " " + st.getContact() + " " + st.getAllergy());
                     System.out.println("<========================================================================================================>");
                     found = true;
-                    sal.remove(st);
+                    sal.remove(st); //Remove the objects from the array
                 }
             }
 
@@ -109,7 +109,7 @@ public class Admin implements Serializable{  //we implement Serialization functi
                 System.out.println("\t\t\t\t\t\t\t\t\t  Successfully Deleted...");
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
                 oos = new ObjectOutputStream(new FileOutputStream(file));
-                oos.writeObject(sal);
+                oos.writeObject(sal); //Write all the objects stored in the dynamic array list after the modification.
                 oos.close();
             }
         }else {
@@ -119,15 +119,16 @@ public class Admin implements Serializable{  //we implement Serialization functi
         }
         System.out.println("\n<========================================================================================================>");
     }
+        //Update Function
 
     private static void update(String patient, String id) throws IOException, ClassNotFoundException, ParseException {
-        File file = new File(patient+".txt");
+        File file = new File(patient+".UWU");
         ObjectInputStream ois  = null;
         ObjectOutputStream oos =  null;
         PradiArray<Patient> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
-        Patient oldPat = new Patient();
+        Patient oldPat = new Patient(); //sal contains the data of the existing patients. if a user need to update their details then the function will compare and check the difference and that details will be updated to oldPat
         System.out.println("\n<========================================================================================================>");
         System.out.println("\t\t\t\t\t\t\t\t\t Welcome to "+patient+" Update Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
@@ -153,7 +154,7 @@ public class Admin implements Serializable{  //we implement Serialization functi
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
             } else {
                 Patient patient1 = new Patient();
-                patient1.setE_no(oldPat.getE_no());
+                patient1.setE_no(oldPat.getE_no()); //Enrollment no of the old patient is passed to the new patient while the updation process
                 System.out.print("=>\t"+"Name : ");
                 patient1.setName(scn.nextLine().toUpperCase());
                 patient1.setDate(MedzeUtil.dateinsert("=>\t"+"Date of Birth (DD/MM/YYYY) : "));
@@ -163,7 +164,7 @@ public class Admin implements Serializable{  //we implement Serialization functi
                 patient1.setContact(MedzeUtil.contact());
                 System.out.print("=>\t"+"Special Disease or Allergy : ");
                 patient1.setAllergy(scn.nextLine());
-                sal.update(oldPat,patient1);
+                sal.update(oldPat,patient1); //finally oldPat and patient1 will be sent to the function and oldPat details will be updated by the patient1 details.
                 System.out.println("\n<========================================================================================================>");
                 System.out.println("Patient Details : "+patient1);
                 System.out.println("<========================================================================================================>");
@@ -181,9 +182,9 @@ public class Admin implements Serializable{  //we implement Serialization functi
         }
         System.out.println("\n<========================================================================================================>");
     }
-
+    //Search Function
     private static void search(String patient,String id) throws IOException, ClassNotFoundException {
-        File file = new File(patient+".txt");
+        File file = new File(patient+".UWU");
         ObjectInputStream ois = null;
         PradiArray<Patient> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
@@ -217,9 +218,9 @@ public class Admin implements Serializable{  //we implement Serialization functi
         }
         System.out.println("\n<========================================================================================================>");
     }
-
+    //Display Patient List Function
     private static void patientlist(String patient,String id) throws IOException, ClassNotFoundException {
-        File file = new File(patient+".txt");
+        File file = new File(patient+".UWU");
         ObjectInputStream ois = null;
         PradiArray<Patient> sal =  new PradiArray<>();
         System.out.println("\n<========================================================================================================>");
@@ -243,6 +244,7 @@ public class Admin implements Serializable{  //we implement Serialization functi
         }
         System.out.println("\n<========================================================================================================>");
     }
+    //Insert Function
 
     private static void insert(String patient,String id) throws IOException, ParseException, ClassNotFoundException {
         System.out.println("\n<========================================================================================================>");
@@ -251,7 +253,7 @@ public class Admin implements Serializable{  //we implement Serialization functi
         Scanner scn = new Scanner(System.in);
         ObjectOutputStream oos = null;
         PradiArray<Patient> sal = new PradiArray<>();
-        File file =new File(patient+".txt");
+        File file =new File(patient+".UWU");
         if(file.isFile()){
             ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(file));
             sal = (PradiArray<Patient>) ois.readObject();
@@ -261,36 +263,35 @@ public class Admin implements Serializable{  //we implement Serialization functi
         while (ch != 0){
             Patient patient1 = new Patient();
             System.out.print("=>\t"+id+" (CSTXXXXX)"+" : ");
-            String no =Id.courseS(id);
-            if (consist(patient,no))
+            String no =Id.courseS(id); //Validate whether the ID format is according to the specified format
+            if (consist(patient,no)) //This is to check whether the patient records are available.
             {
                 System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
                 System.out.println("\t\t\t\t\t\t\t\t\t\t "+id+" Already Added...");
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
             }else {
-                patient1.setE_no(no.toUpperCase());
+                patient1.setE_no(no.toUpperCase()); //Pass the data taken from no is set to the Enrollment no
                 System.out.print("=>\t"+"Name : ");
                 patient1.setName(scn.nextLine().toUpperCase());
-                patient1.setDate(MedzeUtil.dateinsert("=>\t"+"Date of Birth (DD/MM/YYYY) : "));
-                patient1.setGender(MedzeUtil.gender());
-                patient1.setBlood(MedzeUtil.bloodinsert());
-
-                patient1.setContact(MedzeUtil.contact());
+                patient1.setDate(MedzeUtil.dateinsert("=>\t"+"Date of Birth (DD/MM/YYYY) : ")); //Check the date format
+                patient1.setGender(MedzeUtil.gender()); //Check the gender format
+                patient1.setBlood(MedzeUtil.bloodinsert()); //Check the Blood format
+                patient1.setContact(MedzeUtil.contact()); //Check the Contact format
                 System.out.print("=>\t"+"Special Disease or Allergy : ");
                 patient1.setAllergy(scn.nextLine());
-                sal.add(patient1);
+                sal.add(patient1); //Add all the objects to the dynamic array sal
                 System.out.println("\n<========================================================================================================>");
-                System.out.println("Patient Details :\t"+patient1);
+                System.out.println("Patient Details :\t"+patient1); //Help the user to confirm what have been typed.
                 System.out.println("<========================================================================================================>");
                 System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
                 System.out.println("\t\t\t\t\t\t\t\t\t\t  Successfully Added...");
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
             }
 
-            ch = MedzeUtil.iteration();
+            ch = MedzeUtil.iteration(); //There will be an iteration
         }
-        oos = new ObjectOutputStream(new FileOutputStream(file));
-        oos.writeObject(sal);
+        oos = new ObjectOutputStream(new FileOutputStream(file)); //Write the objects
+        oos.writeObject(sal); //Pass the dynamic array
         oos.close();
 
     }

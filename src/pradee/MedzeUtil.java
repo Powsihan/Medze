@@ -2,12 +2,12 @@ package pradee;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
-import java.util.Date;
+import java.time.*; //Get the local time
+import java.util.Date; // Get the local Date
 import java.util.Scanner;
 
 public class MedzeUtil {
-    public static String dateinsert(String x) {
+    public static String dateinsert(String x) { //Check the date format and returns the string
         String D = null;
         Scanner scn = new Scanner(System.in);
         System.out.print(x);
@@ -34,7 +34,7 @@ public class MedzeUtil {
         return D;
     }
 
-    public static String gender() {
+    public static String gender() { //Input the gender
         int i;
         String g = null;
         Scanner scn = new Scanner(System.in);
@@ -57,7 +57,7 @@ public class MedzeUtil {
         return g;
     }
 
-    public static String bloodinsert() {
+    public static String bloodinsert() { //Insert Blood group
         String r = null;
         Scanner scn = new Scanner(System.in);
         System.out.print("=>\t" + "Blood Group" + " (a+,a-,b+,b-,o+,o-,ab+,ab-)" + " : ");
@@ -73,12 +73,12 @@ public class MedzeUtil {
         return r;
     }
 
-    public static String dateViwe(Date x) {
+    public static String dateViwe(Date x) { //View the date according to this format
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
         return sdf.format(x);
     }
 
-    public static String age(Date dob) throws ParseException {
+    public static String age(Date dob) throws ParseException { //Calculate the age using the current date and DOB
 
         //Converting obtained Date object to LocalDate object
         Instant instant = dob.toInstant();
@@ -90,14 +90,13 @@ public class MedzeUtil {
         return age1;
     }
 
-    public static String contact() {
+    public static String contact() { //Check whether the contact number contains 10 digits
         String fine = null;
         Scanner scn = new Scanner(System.in);
-        System.out.print("=>\t" + "Contact Number (07XXXXXXXX): ");
+        System.out.print("=>\t" + "Contact Number (0XXXXXXXXX): ");
         String d = scn.next();
         if (d.matches("[0]{1}[0-9]{9}")) {
             fine = d;
-
         } else {
             System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
             System.out.println("\t\t\tInvalid Phone Number" + d + "\nCheck the number Eg:0771234567");
@@ -106,15 +105,13 @@ public class MedzeUtil {
         }
         return fine;
     }
-
+    //Iterates until the user enter an input
     public static int iteration() {
         Scanner scn = new Scanner(System.in);
         System.out.println("\n<========================================================================================================>");
         System.out.println("\t\t\t\t\t\t\t\t1.Next \t\t0.Back Choice");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         System.out.print("=>Enter Your Choice : ");
-
-
         int ch = 0;
         ch = scn.nextInt();
         if (ch == 1) {
@@ -131,6 +128,4 @@ public class MedzeUtil {
         }
         return ch;
     }
-
-
 }

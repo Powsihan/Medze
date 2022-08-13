@@ -9,10 +9,11 @@ import java.util.Scanner;
 
 
 public class Doctor implements Serializable{
-    public static void main(){
-        DoctorPassword();
-    }
+    // Main Section for doctor Part
+    public static void main()
+    {DoctorPassword();}    //Calling doctor Password section
 
+    //Enquire section
     public static void Enquire()
     {
         Scanner DoctorI=new Scanner(System.in);
@@ -47,7 +48,7 @@ public class Doctor implements Serializable{
             }
         }while(ch!=0);
     }
-
+   //Case detail section
     public static void PatientV(String patient,String ID){
         try{
             Scanner scn=new Scanner(System.in);
@@ -74,6 +75,7 @@ public class Doctor implements Serializable{
 
     }
 
+    // Doctor Password Section
     public static void DoctorPassword() {
         Scanner pass = new Scanner(System.in);
         int passV;
@@ -83,7 +85,7 @@ public class Doctor implements Serializable{
             passV = pass.nextInt();
 
             if (passV == 222) {
-                Enquire();
+                Enquire();    // Calling Enquire Section
             } else {
                 System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
                 System.out.println("\t\t\t\t\t\t\t\t\t\t  Invalid Password Try Again...");
@@ -92,6 +94,7 @@ public class Doctor implements Serializable{
         } while (passV != 222);
 
     }
+    // report Section
     public static void report(String Id) throws IOException, ClassNotFoundException, ParseException {
         System.out.println("\n<========================================================================================================>");
         System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Report Section");

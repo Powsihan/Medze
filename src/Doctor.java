@@ -1,4 +1,3 @@
-import pradee.MedzeUtil;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,8 +9,7 @@ import java.util.Scanner;
 
 public class Doctor implements Serializable{
     // Main Section for doctor Part
-    public static void main()
-    {DoctorPassword();}    //Calling doctor Password section
+    public static void main() {DoctorPassword();}    //Calling doctor Password section
 
     //Enquire section
     public static void Enquire()
@@ -59,7 +57,7 @@ public class Doctor implements Serializable{
             System.out.print("Enter the "+patient+" "+ID+" : ");
             idnum = scn.next();
             if (Admin.consist(patient,idnum)){
-               report(idnum);
+               report(idnum); // calling report section
             }else {
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
                 System.out.println("\t\t\t\t\t\t\t\t\t\t patient not found!");
@@ -124,7 +122,7 @@ public class Doctor implements Serializable{
             if (a == 1) {
                 CaseDetail report01 = new CaseDetail();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Date dateV=new Date();
+                Date dateV=new Date(); // current date and time
                 report01.setCurrentDate(formatter.format(dateV));
                 System.out.println("\t\t\t\t\t\t\t\t\t\t\t Type report...");
                 System.out.println("<------------------------------------------------------------------------------------------------->\n");
@@ -142,7 +140,7 @@ public class Doctor implements Serializable{
                 int b = scnum.nextInt();
                 System.out.println("<-------------------------------------------------------------------------------------------------------->");
                 if (b == 1) {
-                    Drug.Druglist();
+                    Drug.Druglist(); // calling drug list
                 }
 
             }

@@ -56,7 +56,7 @@ public class Admin implements Serializable{  //we implement Serialization interf
         File file = new File(patient+".UWU");     //defines the patient datafile
         boolean found = false;
         ObjectInputStream ois = null;      //To read the objects
-        PradiArray<Patient> sal = new PradiArray<>();//Alternative for Array List from pradeepackge to store the objects in an array
+        PradiArray<Patient> sal = new PradiArray<>();//Alternative for Array List from pradee package to store the objects in an array
         Scanner scn = new Scanner(System.in);
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file)); //Read the inputs from the file

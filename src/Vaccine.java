@@ -133,7 +133,7 @@ public class Vaccine implements Serializable{
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
             System.out.print("Enter how many vaccine you want to add : ");
             n=VAC.nextInt();
-            FileWriter Vac=new FileWriter("Vaccine-list.txt",true);
+            FileWriter Vac=new FileWriter("Vaccine-list.UWU",true);
             PrintWriter Vaccine=new PrintWriter(Vac);
             System.out.println("\n<========================================================================================================>");
             for(i=0;i<n;i++){
@@ -149,7 +149,7 @@ public class Vaccine implements Serializable{
                 System.out.print("=>\tEnter the Vaccine Count : ");
                 int count=VAC.nextInt();
                 Vaccine.println(count);
-                FileWriter VaccineName=new FileWriter(code+".txt");
+                FileWriter VaccineName=new FileWriter(code+".UWU");
                 System.out.println("<------------------------------------------------------------------------------------------------->");
                 VaccineName.close();
 
@@ -187,13 +187,13 @@ public class Vaccine implements Serializable{
 
         System.out.print("Enter the Vaccine Code : ");
         String n2 = scn.next();
-        File VaccineName = new File(n2 + ".txt");
+        File VaccineName = new File(n2 + ".UWU");
         ObjectOutputStream oos=null ;
-        ObjectInputStream ois=null;
-        PradiArray<Vaccine> sal = new PradiArray<>();
+        ObjectInputStream ois=null; //To read the objects
+        PradiArray<Vaccine> sal = new PradiArray<>();   //Alternative for Array List from pradee package to store the objects in an array
         if (VaccineName.isFile()) {
-            ois = new ObjectInputStream(new FileInputStream(VaccineName));
-            sal = (PradiArray<Vaccine>) ois.readObject();
+            ois = new ObjectInputStream(new FileInputStream(VaccineName));  //Read the inputs from the file
+            sal = (PradiArray<Vaccine>) ois.readObject(); //Store the object to the array.
             ois.close();
         }
         boolean found = false;
@@ -229,13 +229,8 @@ public class Vaccine implements Serializable{
 
         }
         oos = new ObjectOutputStream(new FileOutputStream(VaccineName));
-        oos.writeObject(sal);
+        oos.writeObject(sal); //Write all the objects stored in the dynamic array list after the modification.
         oos.close();
-
-
-
-
-
 
     }
 
@@ -243,9 +238,9 @@ public class Vaccine implements Serializable{
     public static void VaccineList(){
         try{
 
-            File VAc=new File("Vaccine-list.txt");
+            File VAc=new File("Vaccine-list.UWU");
             Scanner Vaccine=new Scanner(VAc);
-            System.out.println("Vaccine ID\t\t\t\t\tVaccine Name\t\t\t\t\tQuantity");
+            System.out.println("Vaccine ID\t\t\t\t\tVaccine Name\t\t\t\tQuantity");
             System.out.println("<------------------------------------------------------------------------------------------------->\n");
             while(Vaccine.hasNextLine()){
                 System.out.println(Vaccine.nextLine());

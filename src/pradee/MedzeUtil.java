@@ -93,7 +93,7 @@ public class MedzeUtil {
     public static String contact() { //Check whether the contact number contains 10 digits
         String fine = null;
         Scanner scn = new Scanner(System.in);
-        System.out.print("=>\t" + "Contact Number (0XXXXXXXXX): ");
+        System.out.print("=>\t"+"Contact Number (07XXXXXXXX): ");
         String d = scn.next();
         if (d.matches("[0]{1}[0-9]{9}")) {
             fine = d;

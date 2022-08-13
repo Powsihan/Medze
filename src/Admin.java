@@ -160,7 +160,6 @@ public class Admin implements Serializable{  //we implement Serialization interf
                 patient1.setDate(MedzeUtil.dateinsert("=>\t"+"Date of Birth (DD/MM/YYYY) : "));
                 patient1.setGender(MedzeUtil.gender());
                 patient1.setBlood(MedzeUtil.bloodinsert());
-                System.out.print("=>\t"+"Contact Number (07XXXXXXXX): ");
                 patient1.setContact(MedzeUtil.contact());
                 System.out.print("=>\t"+"Special Disease or Allergy : ");
                 patient1.setAllergy(scn.nextLine());

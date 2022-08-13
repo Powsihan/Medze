@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
+//The methods and classes are same as admin but only the variables differ.
 public class Drug implements Serializable{
     private String d_id,name,c_name;
     private Date mdate = null;
@@ -58,10 +58,11 @@ public class Drug implements Serializable{
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
+    //Formats how the objects are printed
     public String toSting(){
         return d_id+" | "+name+" | "+c_name+" | "+MedzeUtil.dateViwe(mdate)+" | "+MedzeUtil.dateViwe(edate)+" | "+quantity;
     }
+    //Main Function
     public static void main() throws IOException, ClassNotFoundException, ParseException {
         Scanner scn = new Scanner(System.in);
         int ch = 0,n=-1;
@@ -103,15 +104,15 @@ public class Drug implements Serializable{
             }
         }while (ch != 0);
     }
-
+    //Delete Function
     private static void delete() throws IOException,ClassNotFoundException{
-        File file = new File("drug.txt");
+        File file = new File("drug.UWU");
         ObjectInputStream ois = null;
         ObjectOutputStream oos =  null;
         PradiArray<Drug> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Delete Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Drug Delete Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
@@ -150,16 +151,16 @@ public class Drug implements Serializable{
         }
         System.out.println("\n<========================================================================================================>");
     }
-
+    //Update Function
     private static void update() throws IOException, ClassNotFoundException, ParseException {
-        File file = new File("Drug.txt");
+        File file = new File("Drug.UWU");
         ObjectInputStream ois  = null;
         ObjectOutputStream oos =  null;
         PradiArray<Drug> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         Scanner scnum = new Scanner(System.in);
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Update Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Drug Update Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
@@ -209,14 +210,14 @@ public class Drug implements Serializable{
         }
         System.out.println("\n<========================================================================================================>");
     }
-
+    //Search Function
     private static void search() throws IOException, ClassNotFoundException {
-        File file = new File("Drug.txt");
+        File file = new File("Drug.UWU");
         ObjectInputStream ois = null;
         PradiArray<Drug> sal = new PradiArray<>();
         Scanner scn = new Scanner(System.in);
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Search Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Drug Search Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
@@ -245,13 +246,13 @@ public class Drug implements Serializable{
         }
         System.out.println("\n<========================================================================================================>");
     }
-
-    private static void Druglist() throws IOException, ClassNotFoundException {
-        File file = new File("Drug.txt");
+    //Display Drug List Function
+    public static void Druglist() throws IOException, ClassNotFoundException {
+        File file = new File("Drug.UWU");
         ObjectInputStream ois = null;
         PradiArray<Drug> sal =  new PradiArray<>();
         System.out.println("\n<========================================================================================================>");
-        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data View Section");
+        System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Drug View Section");
         System.out.println("<-------------------------------------------------------------------------------------------------------->\n");
         if (file.isFile()) {
             ois = new ObjectInputStream(new FileInputStream(file));
@@ -270,7 +271,7 @@ public class Drug implements Serializable{
         }
         System.out.println("\n<========================================================================================================>");
     }
-
+    //Insert Drug Function
     public static void insert() throws IOException, ParseException, ClassNotFoundException {
         System.out.println("\n<========================================================================================================>");
         System.out.println("\t\t\t\t\t\t\t\t\t Welcome to Data Insert Section");
@@ -279,7 +280,7 @@ public class Drug implements Serializable{
         Scanner scnum = new Scanner(System.in);
         ObjectOutputStream oos = null;
         PradiArray<Drug> sal = new PradiArray<>();
-        File file =new File("Drug.txt");
+        File file =new File("Drug.UWU");
         if(file.isFile()){
             ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(file));
             sal = (PradiArray<Drug>) ois.readObject();
@@ -313,5 +314,4 @@ public class Drug implements Serializable{
         System.out.println("<-------------------------------------------------------------------------------------------------------->");
         System.out.println("\n<========================================================================================================>");
     }
-
 }

@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, InterruptedException, IOException, ParseException {
         Scanner scn= new Scanner(System.in);
-        animation();
+        animation(); // call animation section
 
        int ch=-1;
 

@@ -101,7 +101,7 @@ public class Doctor implements Serializable{
         Scanner scnum = new Scanner(System.in);
         ObjectOutputStream oos = null;
         PradiArray<CaseDetail> sal = new PradiArray<>();
-        File file =new File(Id+".txt");
+        File file =new File(Id+".UWU");
         if(file.isFile()){
             ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(file));
             sal = (PradiArray<CaseDetail>) ois.readObject();

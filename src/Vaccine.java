@@ -56,32 +56,37 @@ public class Vaccine implements Serializable{
                     VaccineList();   // Calling VaccineList section
                     break;
                 case 3:
-                    System.out.println("\n<========================================================================================================>");
-                    System.out.println("\t\t\t\t\t\t\t\t Welcome to Vaccination Section");
-                    System.out.println("<-------------------------------------------------------------------------------------------------------->");
-                    System.out.println("\t\t\t\t\t\t\t1.Student\t\t\t2.Staff\t\t\t0.Exit");
-                    System.out.println("<-------------------------------------------------------------------------------------------------------->");
-                    System.out.print("=>\tEnter your choice:");
                     int ch1=0;
-                    ch1=Vaccine.nextInt();
-                    switch (ch1){
-                        case 1:
-                            Patient("Student","EnrollNo");   // Calling Student section
-                            break;
-                        case 2:
-                            Patient("Staff","ID");     // Calling Staff section
-                            break;
-                        case 0:
-                            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
-                            System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t  Thank You...");
-                            System.out.println("<-------------------------------------------------------------------------------------------------------->");
-                            break;
-                        default:
-                            System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
-                            System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Invalid Input...");
-                            System.out.println("<-------------------------------------------------------------------------------------------------------->");
-                            break;
-                    }
+                    do{
+                        System.out.println("\n<========================================================================================================>");
+                        System.out.println("\t\t\t\t\t\t\t\t Welcome to Vaccination Section");
+                        System.out.println("<-------------------------------------------------------------------------------------------------------->");
+                        System.out.println("\t\t\t\t\t\t\t1.Student\t\t\t2.Staff\t\t\t0.Exit");
+                        System.out.println("<-------------------------------------------------------------------------------------------------------->");
+                        System.out.print("=>\tEnter your choice:");
+
+                        ch1=Vaccine.nextInt();
+                        switch (ch1) {
+                            case 1:
+                                Patient("Student", "EnrollNo");   // Calling Student section
+                                break;
+                            case 2:
+                                Patient("Staff", "ID");     // Calling Staff section
+                                break;
+                            case 0:
+                                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                                System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t  Thank You...");
+                                System.out.println("<-------------------------------------------------------------------------------------------------------->");
+                                break;
+                            default:
+                                System.out.println("\n<-------------------------------------------------------------------------------------------------------->");
+                                System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Invalid Input...");
+                                System.out.println("<-------------------------------------------------------------------------------------------------------->");
+                                break;
+                        }
+                    }while(ch1!=0);
+
+
                     break;
 
                 case 0:

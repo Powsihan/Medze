@@ -149,7 +149,7 @@ public class Vaccine implements Serializable{
                 System.out.print("=>\tEnter the Vaccine Count : ");
                 int count=VAC.nextInt();
                 Vaccine.println(count);
-                FileWriter VaccineName=new FileWriter(code+".UWU");
+                FileWriter VaccineName=new FileWriter("VaccineFiles\\"+code+".UWU");
                 System.out.println("<------------------------------------------------------------------------------------------------->");
                 VaccineName.close();
 

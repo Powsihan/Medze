@@ -1,8 +1,9 @@
-import java.util.Date;
+import pradee.PradiArray;
+
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import pradee.PradiArray;
-import java.io.*;
+import java.util.Date;
 import java.util.Scanner;
 
 
@@ -101,7 +102,7 @@ public class Doctor implements Serializable{
         Scanner scnum = new Scanner(System.in);
         ObjectOutputStream oos = null;
         PradiArray<CaseDetail> sal = new PradiArray<>();
-        File file =new File(Id+".UWU");
+        File file =new File("DoctorFiles\\"+Id+".UWU");
         if(file.isFile()){
             ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(file));
             sal = (PradiArray<CaseDetail>) ois.readObject();

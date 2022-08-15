@@ -133,7 +133,7 @@ public class Vaccine implements Serializable{
             System.out.println("<-------------------------------------------------------------------------------------------------------->");
             System.out.print("Enter how many vaccine you want to add : ");
             n=VAC.nextInt();
-            FileWriter Vac=new FileWriter("Vaccine-list.UWU",true);
+            FileWriter Vac=new FileWriter("VaccineFiles\\"+"Vaccine-list.UWU",true);
             PrintWriter Vaccine=new PrintWriter(Vac);
             System.out.println("\n<========================================================================================================>");
             for(i=0;i<n;i++){
@@ -187,7 +187,7 @@ public class Vaccine implements Serializable{
 
         System.out.print("Enter the Vaccine Code : ");
         String n2 = scn.next();
-        File VaccineName = new File(n2 + ".UWU");
+        File VaccineName = new File("VaccineFiles\\"+n2 + ".UWU");
         ObjectOutputStream oos=null ;
         ObjectInputStream ois=null; //To read the objects
         PradiArray<Vaccine> sal = new PradiArray<>();   //Alternative for Array List from pradee package to store the objects in an array
@@ -238,7 +238,7 @@ public class Vaccine implements Serializable{
     public static void VaccineList(){
         try{
 
-            File VAc=new File("Vaccine-list.UWU");
+            File VAc=new File("VaccineFiles\\"+"Vaccine-list.UWU");
             Scanner Vaccine=new Scanner(VAc);
             System.out.println("Vaccine ID\t\t\t\t\tVaccine Name\t\t\t\tQuantity");
             System.out.println("<------------------------------------------------------------------------------------------------->\n");
